@@ -11,6 +11,18 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
+"@dolittle/rudiments@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@dolittle/rudiments/-/rudiments-5.0.0.tgz#41a0e6d4d82bcdcaf0d9d1c5ba6229e220c7eaa0"
+  integrity sha512-YauS29X7mLTo+gehZ2w8hh295rMM0lJuSNcqAuQplXmk1boAoAuHlDOLxbM9WmN4+/+ZP/ug7tcibSA1zq35qQ==
+  dependencies:
+    "@dolittle/types" "5.0.0"
+
+"@dolittle/types@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@dolittle/types/-/types-5.0.0.tgz#6bee1e8dc2d8996d19821df0c1a5cf6187fe70be"
+  integrity sha512-vItPEo34wUkdvLhyDdoTj1IKSFavkTLAOmPjBga7Xyq4Nn5nQEljXJyn1jDXMMrsOUgLuryEKEbowrt2DrHwkg==
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -1120,6 +1132,18 @@ util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+
+uuid-mongodb@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/uuid-mongodb/-/uuid-mongodb-2.3.0.tgz#1c3438d0202ddba6925ef4fa743b94724dc83a57"
+  integrity sha512-vB3XuDRNgg0LXeo9hqRpOephdldvLRgR2bcz6e3Kg8JjaMFs3CHwJuo8PwtMmHBENGcSsXWF26/nXLI+eQ4s6Q==
+  dependencies:
+    uuid "^8.0.0"
+
+uuid@^8.0.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.0.tgz#ab738085ca22dc9a8c92725e459b1d507df5d6ea"
+  integrity sha512-fX6Z5o4m6XsXBdli9g7DtWgAx+osMsRRZFKma1mIUsLCz6vRvv+pz5VNbyu9UEDzpMWulZfvpgb/cmDXVulYFQ==
 
 widest-line@^3.1.0:
   version "3.1.0"

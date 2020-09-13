@@ -18,8 +18,10 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
+    "@dolittle/rudiments": "^5.0.0",
     "mongodb": "^3.6.2",
     "typescript-ioc": "^3.2.2",
+    "uuid-mongodb": "^2.3.0",
     "winston": "^3.3.3"
   }
 }
