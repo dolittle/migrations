@@ -1,5 +1,31 @@
 # Version 4 to 5
 
+## Intro
+
+We are committed to backwards compatibility and strive towards not having breaking
+changes in our APIs. With version 5 this is also true, but we've had to do some
+changes due to major architectural changes.
+
+The biggest change with version 5 is that you no longer compile all the capabilities
+into your application. There is a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
+that needs to be running. The SDK is then connecting to this using [gRPC](https://grpc.io).
+Since all calls that involves the `Runtime` component having to work is now out-of-process
+and inherently asynchronous in nature, there are things that would've "just worked" before
+that does not work in the same way anymore. This is usually related to things like web requests
+carrying the payload of a command, once entering an AggregateRoot, the events and processing
+of these is handed over to the runtime and it will call back to your code. This means that
+the async context in .NET is different and things you might have relied on to be there, might
+not be there. 
+
+The implication of this is typically that you need to add more to your events so that your
+event handler has access to it. From an event design perspective, this is more accurate and
+is considered best practice - as it will help you guarantee idempotency within your solution.
+Having to rely on transient data from a runtime context or in-memory state will not make it
+possible to replay events if needing. And this is a capability that is very powerful with
+version 5 and with its stream thinking, you could find yourself creating new streams for
+different purposes and then not have access to all the information you need to leverage the
+stream capabilities.
+
 ## Versions
 
 If your solution consists of multiple different projects, you might want to
