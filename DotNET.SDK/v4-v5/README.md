@@ -269,11 +269,65 @@ public class MyCommandHandler : ICanHandleCommands
 
 ## Events
 
+Its with events the biggest changes are.
+The entire handling of events, storing them and then how they are distributed
+to other microservices through the Event Horizon that was first introduced as
+a concept in version 3.
+
 ### Event Store
+
+The Event Store is built from the ground up and sits as the first step in the
+pipeline when committing an event. The event is then stored in the event log.
+Asynchronously from this, whenever events appear in the event log - filters are
+running with these. If a filter for the event going through decides it is
+interested in the event - the event is automatically appended to a stream identified
+by the filters unique identifier.
 
 ### Streams
 
+Streams are front and center for everything events within the runtime.
+As mentioned earlier, filters decide whether or not an event should be in a stream.
+A stream is an immutable definition of what events are in it - with an append only
+behavior. This means a filter can't change its definition if there are existing events
+that will be included by the new filter definition. This is what we mean by append only.
+New events that has not appeared in the event log after the definition changed will
+be accepted.
+
 ### EventHandlers instead of EventProcessors
+
+In version 4 and prior, there was the concept of an event processor.
+It was built around two pieces; implementing the interface `ICanProcessEvents` and by 
+convention one or more `Process()` methods taking the event as an argument and adorning
+it with the attribute `[EventProcessor()]`.
+
+You'd have something like this:
+
+```csharp
+public class MyEventProcessor : ICanProcessevents
+{
+    [EventProcessor("<guid>")
+    public void Process(MyEvent @event)
+    {
+        // Process....
+    }
+}
+```
+
+With this, we looked at each individual method as a unique event processor and lacked
+partitioning - which lead to problems with guaranteeing ordering and correct replay
+of events.
+
+In version 5 this has been completely taken out and replaced with something called
+EventHandlers. EventHandlers are in fact a specialized type of filter that filters
+based on the types the implementing class can handle. This filter definition is what
+is used to define the stream.
+
+```csharp
+[EventHandler("<guid>")]
+public class MyEventHandler : ICanHandleEvents
+{
+}
+```
 
 
 ## Runtime
