@@ -31,14 +31,102 @@ You can find this file [here](./versions.props).
 
 Everything in version 5 has been updated to using either [netstandard2.1](https://devblogs.microsoft.com/dotnet/announcing-net-standard-2-1/) and for ASP.NET Core; [netcoreapp3.1](https://docs.microsoft.com/en-us/aspnet/core/migration/30-to-31?view=aspnetcore-3.1&tabs=visual-studio).
 
-### Docker Packaging
-
-
 ### Program / Main
 
-### Dependency Inversion
+The booting procedure for Dolittle has changed a lot and is much more in
+alignment with how .NET Core and the host builder works.
+Typically with a .NET Core App 3.1 setup, you will have a `Program.cs`
+that looks like the following:
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+    
+    static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            // Add this for Dolittle
+            .UseDolittle()
+            .ConfigureWebHostDefaults(webHostBuilder =>
+            {
+                webHostBuilder
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseStartup<Startup>();
+            });
+}
+```
+
+### IoC Container
+
+Since the configuration of Dolittle happens so early. The setup for the IoC container
+is simplified. Firstly, the IoC is automatically discovered as before - and
+out of the box, Dolittle only supports Autofac. You can however write your own implementation
+of any IoC by implementing the interface `ICanProvideContainer`. An example of this
+would be to look at the [Autofac implementation](https://github.com/dolittle/DotNET.Fundamentals/blob/master/Source/DependencyInversion.Autofac/ContainerProvider.cs).
+
+With version 4 you had to have a line that configured Dolittle in the `ConfigureContainer`
+method in your `Startup` class. This is no longer needed.
+You can instead use the `ConfigureContainer` method to add addtional explicit bindings if you'd
+like.
 
 ### Logging
+
+With version 5, the internal logging mechanism has changed to be more aligned with the
+.NET Core infrastructure for this and also honor the configuration and loglevels set.
+It is recommended to configure logging as soon as possible, before you call `UseDolittle()`
+in `Program`.
+
+Below is an example using [Serilog](https://serilog.net).
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .AddJsonFile($"appsettings.{environmentName}.json", true, true)
+            .AddEnvironmentVariables();
+        var configuration = builder.Build();
+
+        var loggerConfiguration = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .Enrich.WithExceptionDetails()
+            .WriteTo.Console();
+
+        Log.Logger = loggerConfiguration.CreateLogger();
+        
+        CreateHostBuilder(args).Build().Run();
+    }
+    
+    static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            // Add this for Serilog 
+            .UseSerilog(Log.Logger)
+            .UseDolittle()
+            .ConfigureWebHostDefaults(webHostBuilder =>
+            {
+                webHostBuilder
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseStartup<Startup>();
+            });
+}
+```
+
+### Docker Packaging
+
+If you're building your solution using Docker, you should update the base images used
+for your build context and your runtime context.
+We recommend using the following:
+
+- Build Context: mcr.microsoft.com/dotnet/core/sdk:3.1
+- Runtime Context: mcr.microsoft.com/dotnet/core/aspnet:3.1
 
 ## Tenancy
 
