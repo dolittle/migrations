@@ -5,6 +5,7 @@ import { Aggregate } from "./Aggregate";
 import { EventHorizon } from "./EventHorizon";
 
 export class Event {
+    _id: number;
     Partition: Guid;
     ExecutionContext: ExecutionContext;
     Metadata: EventMetadata;
