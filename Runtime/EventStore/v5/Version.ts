@@ -18,4 +18,12 @@ export class Version {
 
     @prop()
     PreRelease!: string;
+
+    constructor() {
+        this.Major = 0;
+        this.Minor = 0;
+        this.Patch = 0;
+        this.Build = 0;
+        this.PreRelease = '';
+    }
 }

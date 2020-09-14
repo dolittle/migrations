@@ -3,7 +3,7 @@
 
 import { Guid } from '@dolittle/rudiments';
 import { prop } from '@typegoose/typegoose';
-import { guid } from 'guid';
+import { guid } from '../guid';
 
 export class EventHorizon {
     @prop()

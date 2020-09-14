@@ -11,5 +11,5 @@ export class ExecutionContext {
     Tenant!: Guid;
     Version!: Version;
     Environment!: string;
-    CLaims!: Claim[];
+    Claims!: Claim[];
 }

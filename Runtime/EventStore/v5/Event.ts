@@ -6,9 +6,11 @@ import { ExecutionContext } from './ExecutionContext';
 import { EventMetadata } from "./EventMetadata";
 import { Aggregate } from "./Aggregate";
 import { EventHorizon } from "./EventHorizon";
-import { prop } from '@typegoose/typegoose';
-import { guid } from 'guid';
+import { prop, getModelForClass, modelOptions, Severity } from '@typegoose/typegoose';
+import { guid } from '../guid';
+import { Connection, Model, Document } from 'mongoose';
 
+@modelOptions({ schemaOptions: { collection: 'event-log' }, options: { allowMixed: Severity.ALLOW } })
 export class Event {
     @prop()
     _id?: number;
@@ -30,4 +32,10 @@ export class Event {
 
     @prop()
     Content: any;
+}
+
+export const EventModel = getModelForClass(Event);
+
+export function getEventModelFor(connection: Connection): Model<Document> {
+    return connection.model('Event', EventModel.schema);
 }
