@@ -7,7 +7,7 @@ changes in our APIs. With version 5 this is also true, but we've made some under
 architectural changes that has caused some breaking changes.
 
 The biggest change with version 5 is that you no longer compile all the capabilities
-into your application. There is a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
+into your solution. Parts have been formalized into a separate a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
 that needs to be running. The SDK is then connecting to this using [gRPC](https://grpc.io).
 Since all calls that involves the `Runtime` component having to work is now out-of-process
 and inherently asynchronous in nature, there are things that would've "just worked" before
@@ -25,6 +25,13 @@ possible to replay events if needing. And this is a capability that is very powe
 version 5 and with its stream thinking, you could find yourself creating new streams for
 different purposes and then not have access to all the information you need to leverage the
 stream capabilities.
+
+The reason we're doing this change is to be able to maintain a separate Microservice and
+Event oriented runtime component that can be maintained and versioned separately. In a 
+running distributed system, this is the component that does the heavy lifting and can
+therefor be separately patched without having to recompile any application code.
+Another clear benefit with this approach is the ability to offer SDKs
+for different programming languages.
 
 ## Versions
 
@@ -205,7 +212,7 @@ public class ExecutionContextMiddleware
 
 ### Namespaces
 
-All namespaces that used to have `Dolittle.Runtime` in it is now only `Dolittle`.
+All namespaces that used to have `Dolittle.Runtime` in it is now only has `Dolittle`.
 
 ### Aggregates
 
