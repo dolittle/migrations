@@ -47,7 +47,7 @@ export class EventStoreConverter {
 
                 destinationEvent.EventHorizon = this.getEmptyEventHorizon();
 
-                destinationEvent.Content = {};
+                destinationEvent.Content = this.getContentFrom(sourceEvent);
 
                 this.getContentFrom(sourceEvent);
 
