@@ -1,10 +1,26 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import { Guid } from '@dolittle/rudiments';
+import { guid } from 'guid';
+import { prop } from '@typegoose/typegoose';
 
 export class EventMetadata {
-    Occurred: Date;
-    EventSource: Guid;
-    TypeId: Guid;
-    TypeGeneration: number;
-    Public: boolean;
-    EventLogSequenceNumber: number;
+    @prop()
+    Occurred!: Date;
+
+    @guid()
+    EventSource!: Guid;
+
+    @guid()
+    TypeId!: Guid;
+
+    @prop()
+    TypeGeneration!: number;
+
+    @prop()
+    Public!: boolean;
+
+    @prop()
+    EventLogSequenceNumber!: number;
 }
