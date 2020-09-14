@@ -3,14 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "prebuild": "rm -rf Distribution",
+    "prepublish": "yarn build",
+    "build": "tsc -b",
     "dev": "nodemon --watch $(pwd) -e ts --exec 'ts-node' index.ts",
     "debug": "nodemon --inspect=5858 -e ts --exec node -r ts-node/register index.ts",
     "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "Distribution",
+    "**/*.ts"
+  ],
   "author": "Einar Ingebrigtsen",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/mongoose": "5.7.36",
     "nodemon": "^2.0.4",
@@ -19,7 +29,7 @@
   },
   "dependencies": {
     "@dolittle/rudiments": "^5.0.0",
-    "@typegoose/typegoose": "7.3.4",    
+    "@typegoose/typegoose": "7.3.4",
     "mongoose": "5.10.1",
     "reflect-metadata": "0.1.13",
     "type-graphql": "1.0.0",

@@ -6,6 +6,7 @@
         "rootDir": ".",
         "baseUrl": "./",
         "sourceRoot": "./",
+        "outDir": "Distribution",
         "downlevelIteration": true,
         "inlineSourceMap": true,
         "sourceMap": false,
