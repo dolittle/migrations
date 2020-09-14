@@ -150,7 +150,7 @@ export class EventStoreConverter {
                 }
             });
         } else {
-            await this._aggregateModel.update(
+            await this._aggregateModel.updateOne(
                 aggregateVersionCriteria,
                 { $inc: { Version: 1 } }
             );
