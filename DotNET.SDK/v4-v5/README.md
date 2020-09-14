@@ -7,7 +7,7 @@ changes in our APIs. With version 5 this is also true, but we've made some under
 architectural changes that has caused some breaking changes.
 
 The biggest change with version 5 is that you no longer compile all the capabilities
-into your application. There is a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
+into your solution. Parts have been formalized into a separate a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
 that needs to be running. The SDK is then connecting to this using [gRPC](https://grpc.io).
 Since all calls that involves the `Runtime` component having to work is now out-of-process
 and inherently asynchronous in nature, there are things that would've "just worked" before
@@ -25,6 +25,13 @@ possible to replay events if needing. And this is a capability that is very powe
 version 5 and with its stream thinking, you could find yourself creating new streams for
 different purposes and then not have access to all the information you need to leverage the
 stream capabilities.
+
+The reason we're doing this change is to be able to maintain a separate Microservice and
+Event oriented runtime component that can be maintained and versioned separately. In a 
+running distributed system, this is the component that does the heavy lifting and can
+therefor be separately patched without having to recompile any application code.
+Another clear benefit with this approach is the ability to offer SDKs
+for different programming languages.
 
 ## Versions
 
@@ -205,7 +212,7 @@ public class ExecutionContextMiddleware
 
 ### Namespaces
 
-All namespaces that used to have `Dolittle.Runtime` in it is now only `Dolittle`.
+All namespaces that used to have `Dolittle.Runtime` in it is now only has `Dolittle`.
 
 ### Aggregates
 
@@ -269,7 +276,7 @@ public class MyCommandHandler : ICanHandleCommands
 
 ## Events
 
-Its with events the biggest changes are.
+Its within everything events the biggest changes are.
 The entire handling of events, storing them and then how they are distributed
 to other microservices through the Event Horizon that was first introduced as
 a concept in version 3.
@@ -329,7 +336,6 @@ public class MyEventHandler : ICanHandleEvents
 }
 ```
 
-
 ## Runtime
 
 In version 5, the Runtime is no longer an in-process component of your solution.
@@ -364,6 +370,20 @@ Another benefit of making this explicit is that you get well formed events that 
 
 ### ExecutionContext
 
+The execution context that exists in Dolittle, holds information that is relevant to
+the current running execution path. It supports the asynchronous model of .NET Core and
+makes sure to provide a unique execution context the the asynchronous context you're in.
+This context is also captured and sent along to the runtime when interacting with it.
+For events, parts of the execution context is even stored together with the events.
+
+Within the execution context, you'll typically find the current claims for the current
+identity, similar to what you'd find on `HttpContext` and the `User` object.
+
+In order for the state to be correct, the execution context has to be established.
+On it, you'll find information such as Tenant, Environment (Production, Development, ...),
+Claims and Microservice identifier. These can prove vital for the system to be working
+properly. This holds true especially for Tenant, as the runtime uses the tenant information
+to connect to the correct even store to store events.
 
 ## Known issues
 
