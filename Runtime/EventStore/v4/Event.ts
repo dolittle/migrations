@@ -1,16 +1,43 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import { Guid } from '@dolittle/rudiments';
-import { ExeutionContext } from './ExeutionContext';
+import { ExecutionContext } from './ExecutionContext';
+import { guid } from '../guid';
+import { prop } from '@typegoose/typegoose';
 
 export class Event {
-    _id: Guid;
-    correlation_id: Guid;
-    event_artifact: Guid;
-    generation: 1;
-    event_source_artifact: Guid;
-    eventsource_id: Guid;
-    commit: number;
-    sequence: number;
-    occurred: number;
-    original_context: ExeutionContext;
-    event: any;
+    @guid(false)
+    _id?: Guid;
+
+    @guid(false)
+    correlation_id!: Guid;
+
+    @guid(false)
+    event_artifact!: Guid;
+
+    @prop()
+    generation!: 1;
+
+    @guid(false)
+    event_source_artifact!: Guid;
+
+    @guid(false)
+    eventsource_id!: Guid;
+
+    @prop()
+    commit!: number;
+
+    @prop()
+    sequence!: number;
+
+    @prop()
+    occurred!: number;
+
+    @prop({ _id: false, type: ExecutionContext })
+    original_context!: ExecutionContext;
+
+    @prop()
+    event!: any;
 }
+

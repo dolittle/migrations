@@ -2,14 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { prop } from '@typegoose/typegoose';
+import { GuidSchemaType } from './GuidSchemaType';
 
-export class Claim {
-    @prop()
-    Name!: string;
-
-    @prop()
-    Value!: string;
-
-    @prop()
-    ValueType!: string;
+export function guid(swapOrder: boolean = true) {
+    return prop({ name: GuidSchemaType, swapOrder: swapOrder });
 }

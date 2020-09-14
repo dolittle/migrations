@@ -1,3 +1,6 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 import { Container } from 'typescript-ioc';
 import { createLogger, format, transports } from 'winston';
 import { ILogger } from './ILogger';
@@ -16,9 +19,7 @@ export function configureLogging() {
     };
 
     const logger = createLogger(loggerOptions);
-    console.log('Bind');
     Container.bind(ILogger).factory(() => {
-        console.log('Factory');
         return logger;
     });
 }

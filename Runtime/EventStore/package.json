@@ -12,14 +12,17 @@
   "author": "Einar Ingebrigtsen",
   "license": "ISC",
   "devDependencies": {
-    "@types/mongodb": "^3.5.27",
+    "@types/mongoose": "5.7.36",
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   },
   "dependencies": {
     "@dolittle/rudiments": "^5.0.0",
-    "mongodb": "^3.6.2",
+    "@typegoose/typegoose": "7.3.4",    
+    "mongoose": "5.10.1",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "1.0.0",
     "typescript-ioc": "^3.2.2",
     "uuid-mongodb": "^2.3.0",
     "winston": "^3.3.3"
