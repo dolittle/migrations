@@ -3,8 +3,8 @@
 ## Intro
 
 We are committed to backwards compatibility and strive towards not having breaking
-changes in our APIs. With version 5 this is also true, but we've had to do some
-changes due to major architectural changes.
+changes in our APIs. With version 5 this is also true, but we've made some underlying
+architectural changes that has caused some breaking changes.
 
 The biggest change with version 5 is that you no longer compile all the capabilities
 into your application. There is a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
@@ -344,6 +344,23 @@ to it.
 
 
 ## Guidance
+
+### Events, replay and idempotency
+
+The concept of [idempotency](https://en.wikipedia.org/wiki/Idempotence) is important
+when working with event driven systems. It speaks about the ability of applying the
+same operations multiple times and getting the same result. This means that capturing
+the properties you need on the events to be able to guarantee this is important.
+Any transient state that sits in-memory or is part of an execution context in any way,
+is not something that should be relied on.
+
+Since events can be replayed this becomes very important, especially with the way we do
+streams and the processing of events from these. Whenever you add a new event handler
+that handles events already there, they will copied to the stream of this new event handler
+and played for the handle methods. This is a completely asynchronous out of context
+action and it is therefor vital that information is on the events.
+
+Another benefit of making this explicit is that you get well formed events that tell a story.
 
 ### ExecutionContext
 
