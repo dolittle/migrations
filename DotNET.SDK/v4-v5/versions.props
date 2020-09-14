@@ -1,0 +1,12 @@
+<Project>
+    <PropertyGroup>
+        <DolittleFundamentalsVersion>5.0.0</DolittleFundamentalsVersion>
+        <DolittleAspNetCoreVersion>8.0.0</DolittleAspNetCoreVersion>
+        <DolittleSDKVersion>5.0.0</DolittleSDKVersion>
+        <DolittleReadModelsMongoDBVersion>5.0.0</DolittleReadModelsMongoDBVersion>
+        <DolittleMachineSpecificationsVersion>3.0.13</DolittleMachineSpecificationsVersion>
+        <MicrosoftExtensionsVersion>3.1.2</MicrosoftExtensionsVersion>
+        <SystemServiceModelVersion>4.7.*</SystemServiceModelVersion>
+        <MicrosoftAspNetCoreVersion>3.1.2</MicrosoftAspNetCoreVersion>
+    </PropertyGroup>
+</Project>
