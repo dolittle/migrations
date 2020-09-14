@@ -10,7 +10,7 @@ declare module '@dolittle/rudiments' {
         /**
          * Converts a {@link Guid} to a {@link MUUID}
          */
-        toMUUID(swapOrder: boolean): MUUID;
+        toMUUID(swapOrder?: boolean): MUUID;
     }
 }
 
@@ -39,7 +39,7 @@ declare module 'mongodb' {
         /**
          * Converts a {@link MUUID} to a {@link Guid}
          */
-        toGuid(swapOrder: boolean): Guid;
+        toGuid(swapOrder?: boolean): Guid;
     }
 }
 

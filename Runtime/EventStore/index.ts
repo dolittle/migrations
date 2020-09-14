@@ -9,6 +9,10 @@ import { ILogger } from './ILogger';
 import { CommitModel, getCommitModelFor, Commit } from './v4/Commit';
 import { getEventModelFor, Event } from './v5/Event';
 import { Guid } from '@dolittle/rudiments';
+import { Binary } from 'mongodb';
+import './StringExtensions';
+import { getAggregateVersionModelFor, AggregateVersion } from './v5/AggregateVersion';
+import { ObjectId } from 'mongodb';
 
 configureLogging();
 const logger = Container.get(ILogger);
@@ -41,10 +45,12 @@ const logger = Container.get(ILogger);
         }
 
         destinationConnection.dropCollection('event-log');
+        destinationConnection.dropCollection('aggregates');
 
         logger.info('Connected');
         const commitModel = getCommitModelFor(sourceConnection);
         const eventModel = getEventModelFor(destinationConnection);
+        const aggregateModel = getAggregateVersionModelFor(destinationConnection);
 
         const total = await commitModel.countDocuments();
         logger.info(`Starting to convert ${total} commits into events`);
@@ -96,9 +102,54 @@ const logger = Container.get(ILogger);
                     Consent: Guid.empty
                 };
 
-                destinationEvent.Content = sourceEvent.event
+                destinationEvent.Content = {};
 
-                logger.info(destinationEvent);
+                for (const property in sourceEvent.event) {
+                    const camelCasePropertyName = property.toCamelCase();
+                    const value = sourceEvent.event[property];
+                    if (value instanceof Binary) {
+                        const binaryValue = value as Binary;
+                        if (binaryValue.buffer.length === 16) {
+                            const guid = binaryValue.toGuid();
+                            destinationEvent.Content[camelCasePropertyName] = guid.toString();
+                        } else {
+                            let base64String = btoa(String.fromCharCode(...new Uint8Array(binaryValue.buffer)));
+                            destinationEvent.Content[camelCasePropertyName] = base64String;
+                        }
+                    } else {
+                        destinationEvent.Content[camelCasePropertyName] = value.toString();
+                    }
+                }
+
+                const aggregateVersionCriteria = {
+                    AggregateType: sourceEvent.event_source_artifact,
+                    EventSource: sourceEvent.eventsource_id
+                };
+                const hasAggregate = await aggregateModel.exists(aggregateVersionCriteria);
+
+                let version: number = 1;
+
+                if (!hasAggregate) {
+                    await aggregateModel.create({
+                        ...aggregateVersionCriteria,
+                        ...{
+                            _id: new mongoose.mongo.ObjectId(),
+                            Version: 1
+                        }
+                    });
+                } else {
+                    await aggregateModel.update(
+                        aggregateVersionCriteria,
+                        { $inc: { Version: 1 } }
+                    );
+
+                    const aggregateVersionDocument = await aggregateModel.findOne(aggregateVersionCriteria).exec();
+                    if (aggregateVersionDocument) {
+                        version = (aggregateVersionDocument as any as AggregateVersion).Version;
+                    }
+                }
+
+                destinationEvent.Aggregate.Version = version;
 
                 await eventModel.create(destinationEvent);
 
@@ -106,37 +157,7 @@ const logger = Container.get(ILogger);
 
                 sequenceNumber++;
             }
-
-            
-
-            //logger.info(commit.correlation_id);
-            //logger.info(commit.events[0].event_artifact);
-
-
-            //
-            break;
         }
-
-        //connection.models
-
-
-
-
-        //logger.info(await CommitModel.exists((_: any) => true));
-
-        logger.info('Blah');
-
-        /*
-        const commits = await CommitModel.find().exec();
-        logger.info('Fetched');
-
-        for (const commit of commits) {
-            logger.info(commit);
-
-        }
-        */
-
-
     } catch (e) {
         logger.error(`Couldn't connect to Mongo : '${e}'`);
     }

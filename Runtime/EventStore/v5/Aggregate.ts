@@ -18,3 +18,4 @@ export class Aggregate {
     @prop()
     Version!: number;
 }
+
