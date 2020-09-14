@@ -11,6 +11,8 @@ import { getAggregateVersionModelFor, AggregateVersion } from './v5/AggregateVer
 import { mongoose } from '@typegoose/typegoose';
 import { ILogger } from './ILogger';
 
+export type EventModifierCallback = (sourceEvent: v4Event, destinationEvent: Event) => boolean;
+
 export class EventStoreConverter {
     private _commitModel: Model<Document>;
     private _eventModel: Model<Document>;
@@ -19,7 +21,8 @@ export class EventStoreConverter {
     constructor(
         private readonly _sourceConnection: Connection,
         private readonly _destinationConnection: Connection,
-        private readonly _logger: ILogger) {
+        private readonly _logger: ILogger,
+        private readonly _modifierCallback: EventModifierCallback = (s, d) => true) {
         this._commitModel = getCommitModelFor(_sourceConnection);
         this._eventModel = getEventModelFor(_destinationConnection);
         this._aggregateModel = getAggregateVersionModelFor(_destinationConnection);
@@ -51,13 +54,14 @@ export class EventStoreConverter {
 
                 this.getContentFrom(sourceEvent);
 
-                destinationEvent.Aggregate.Version = await this.getAggregateVersionFor(sourceEvent);
+                if (this._modifierCallback(sourceEvent, destinationEvent)) {
+                    destinationEvent.Aggregate.Version = await this.getAggregateVersionFor(sourceEvent);
 
-                await this._eventModel.create(destinationEvent);
+                    await this._eventModel.create(destinationEvent);
 
-                process.stdout.write('.');
-
-                sequenceNumber++;
+                    process.stdout.write('.');
+                    sequenceNumber++;
+                }
             }
         }
     }
@@ -119,7 +123,7 @@ export class EventStoreConverter {
             TypeId: sourceEvent.event_source_artifact,
             TypeGeneration: 1,
             Version: 0
-        };        
+        };
     }
 
     private getEmptyEventHorizon() {
@@ -128,7 +132,7 @@ export class EventStoreConverter {
             ExternalEventLogSequenceNumber: 0,
             Received: new Date(0),
             Consent: Guid.empty
-        };        
+        };
     }
 
     private async getAggregateVersionFor(sourceEvent: v4Event): Promise<number> {
