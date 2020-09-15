@@ -1,6 +1,6 @@
 {
   "name": "@dolittle/eventstore-migrator",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Migrator for the Dolittle Event Store",
   "main": "Distribution/index.js",
   "types": "Distribution/index.d.ts",

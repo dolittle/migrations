@@ -69,7 +69,8 @@ export class EventStoreConverter {
             docCount++;
         }
 
-        this._logger.info(`${docCount} source events, ${sequenceNumber} destination events`);
+        this._logger.info('');
+        this._logger.info(`Converted ${docCount} commits into ${sequenceNumber} events`);
     }
 
     private getContentFrom(sourceEvent: v4Event) {
