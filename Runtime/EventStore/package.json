@@ -28,7 +28,7 @@
     "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Einar Ingebrigtsen",
+  "author": "Dolittle",
   "license": "MIT",
   "devDependencies": {
     "@types/mongoose": "5.7.36",
