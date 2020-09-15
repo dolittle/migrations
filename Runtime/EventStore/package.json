@@ -1,11 +1,24 @@
 {
   "name": "@dolittle/eventstore-migrator",
-  "version": "1.0.2",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.3",
+  "description": "Migrator for the Dolittle Event Store",
+  "main": "Distribution/index.js",
+  "types": "Distribution/index.d.ts",
+  "files": [
+    "Distribution",
+    "**/*.ts"
+  ],
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolittle/migrations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dolittle/migrations/issues"
+  },
+  "homepage": "https://github.com/dolittle/migrations#readme",
   "scripts": {
     "prebuild": "rm -rf Distribution",
     "prepublish": "yarn build",
@@ -15,10 +28,6 @@
     "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "files": [
-    "Distribution",
-    "**/*.ts"
-  ],
   "author": "Einar Ingebrigtsen",
   "license": "MIT",
   "devDependencies": {
