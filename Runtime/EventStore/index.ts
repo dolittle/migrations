@@ -9,9 +9,10 @@ import './StringExtensions';
 import { EventStoreConverter } from './EventStoreConverter';
 
 export { EventStoreConverter } from './EventStoreConverter';
+export { ILogger } from './ILogger';
 
 configureLogging();
-const logger = Container.get(ILogger);
+export const logger = Container.get(ILogger);
 
 (async () => {
     try {
