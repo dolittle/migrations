@@ -5,5 +5,5 @@ import { prop } from '@typegoose/typegoose';
 import { GuidSchemaType } from './GuidSchemaType';
 
 export function guid(swapOrder: boolean = true) {
-    return prop({ name: GuidSchemaType, swapOrder: swapOrder });
+    return prop({ name: GuidSchemaType, swapOrder });
 }

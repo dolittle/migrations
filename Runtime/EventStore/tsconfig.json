@@ -1,47 +1,12 @@
 {
+    "extends": "../../tsconfig.settings.json",
     "compilerOptions": {
-        "module": "CommonJS",
-        "allowSyntheticDefaultImports": true,
-        "target": "es2015",
         "rootDir": ".",
-        "baseUrl": "./",
-        "sourceRoot": "./",
-        "outDir": "Distribution",
-        "downlevelIteration": true,
-        "inlineSourceMap": true,
-        "sourceMap": false,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "stripInternal": true,
-
-        "pretty": true,
-        "moduleResolution": "node",
-    
-        "esModuleInterop": true,
-        "declaration": true,
-        "declarationMap": true,
-        "composite": true,
-        "incremental": true,
-        "watch": true,
-        "noEmitOnError": true,
-    
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true,
-        "assumeChangesOnlyAffectDirectDependencies": true,
-    
-        "resolveJsonModule": true,
-        "strict": true,
-        "alwaysStrict": true,
-        "preserveConstEnums": true,
-        "newLine": "lf"        
+        "sourceRoot": "../",
+        "outDir": "Distribution"
     },
-    "include": [
-        "**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ],
-    "references": []
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "Distribution"],
+    "references": [
+    ]
 }

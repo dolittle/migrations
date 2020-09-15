@@ -43,8 +43,8 @@ export class EventStoreConverter {
 
             for (const sourceEvent of commit.events) {
                 const destinationEvent = new Event();
-                destinationEvent._id = sequenceNumber
-                destinationEvent.ExecutionContext = this.getExecutionContextFrom(sourceEvent)
+                destinationEvent._id = sequenceNumber;
+                destinationEvent.ExecutionContext = this.getExecutionContextFrom(sourceEvent);
                 destinationEvent.Metadata = this.getMetadataFrom(sourceEvent, sequenceNumber);
                 destinationEvent.Aggregate = this.getAggregateFrom(sourceEvent);
                 destinationEvent.EventHorizon = this.getEmptyEventHorizon();
@@ -74,13 +74,10 @@ export class EventStoreConverter {
                 if (binaryValue.buffer.length === 16) {
                     const guid = binaryValue.toGuid();
                     content[camelCasePropertyName] = guid.toString();
+                } else {
+                    content[camelCasePropertyName] = btoa(String.fromCharCode(...new Uint8Array(binaryValue.buffer)));
                 }
-                else {
-                    let base64String = btoa(String.fromCharCode(...new Uint8Array(binaryValue.buffer)));
-                    content[camelCasePropertyName] = base64String;
-                }
-            }
-            else {
+            } else {
                 content[camelCasePropertyName] = value.toString();
             }
         }

@@ -8,16 +8,14 @@ import { ILogger } from './ILogger';
 import './StringExtensions';
 import { EventStoreConverter } from './EventStoreConverter';
 
-export { EventStoreConverter } from './EventStoreConverter';
-export { ILogger } from './ILogger';
+export { EventStoreConverter } from './EventStoreConverter';
+export { ILogger } from './ILogger';
 
 configureLogging();
 export const logger = Container.get(ILogger);
 
 (async () => {
     try {
-        
-
         const sourceConnection = await mongoose.createConnection('mongodb://localhost:27018', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -41,4 +39,3 @@ export const logger = Container.get(ILogger);
         logger.error(`Couldn't connect to Mongo : '${e}'`);
     }
 })();
-

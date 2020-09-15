@@ -6,7 +6,7 @@ import { prop } from '@typegoose/typegoose';
 import { guid } from '../guid';
 
 export class Aggregate {
-    @prop()    
+    @prop()
     WasAppliedByAggregate!: boolean;
 
     @guid()
@@ -18,4 +18,3 @@ export class Aggregate {
     @prop()
     Version!: number;
 }
-

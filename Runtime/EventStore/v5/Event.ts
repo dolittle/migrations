@@ -3,9 +3,9 @@
 
 import { Guid } from '@dolittle/rudiments';
 import { ExecutionContext } from './ExecutionContext';
-import { EventMetadata } from "./EventMetadata";
-import { Aggregate } from "./Aggregate";
-import { EventHorizon } from "./EventHorizon";
+import { EventMetadata } from './EventMetadata';
+import { Aggregate } from './Aggregate';
+import { EventHorizon } from './EventHorizon';
 import { prop, getModelForClass, modelOptions, Severity } from '@typegoose/typegoose';
 import { guid } from '../guid';
 import { Connection, Model, Document } from 'mongoose';
