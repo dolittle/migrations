@@ -6,13 +6,17 @@ import { configureLogging } from './Logging';
 import { Container } from 'typescript-ioc';
 import { ILogger } from './ILogger';
 import './StringExtensions';
-import { EventStoreConverter } from './EventStoreConverter_4to5';
+import { EventStoreConverter } from './EventStoreConverter';
+
+export { EventStoreConverter } from './EventStoreConverter';
 
 configureLogging();
 const logger = Container.get(ILogger);
 
 (async () => {
     try {
+        
+
         const sourceConnection = await mongoose.createConnection('mongodb://localhost:27018', {
             useNewUrlParser: true,
             useUnifiedTopology: true,

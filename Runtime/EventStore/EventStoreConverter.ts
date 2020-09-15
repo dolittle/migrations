@@ -47,9 +47,7 @@ export class EventStoreConverter {
                 destinationEvent.ExecutionContext = this.getExecutionContextFrom(sourceEvent)
                 destinationEvent.Metadata = this.getMetadataFrom(sourceEvent, sequenceNumber);
                 destinationEvent.Aggregate = this.getAggregateFrom(sourceEvent);
-
                 destinationEvent.EventHorizon = this.getEmptyEventHorizon();
-
                 destinationEvent.Content = this.getContentFrom(sourceEvent);
 
                 this.getContentFrom(sourceEvent);
