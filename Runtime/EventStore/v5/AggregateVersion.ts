@@ -7,7 +7,7 @@ import { ObjectId } from 'mongodb';
 import { guid } from '../guid';
 import { Connection, Model, Document } from 'mongoose';
 
-@modelOptions({ schemaOptions: { collection: 'aggregates' }, options: { allowMixed: Severity.ALLOW } })
+@modelOptions({ schemaOptions: { collection: 'aggregates', versionKey: false }, options: { allowMixed: Severity.ALLOW, customName: 'AggregateVersionV5' } })
 export class AggregateVersion {
     @prop()
     _id?: ObjectId;
@@ -25,5 +25,5 @@ export class AggregateVersion {
 export const AggregateModel = getModelForClass(AggregateVersion);
 
 export function getAggregateVersionModelFor(connection: Connection): Model<Document> {
-    return connection.model('Aggregate', AggregateModel.schema);
+    return connection.model('AggregateVersionV5', AggregateModel.schema);
 }

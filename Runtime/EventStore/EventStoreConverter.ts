@@ -10,6 +10,7 @@ import { Binary } from 'mongodb';
 import { getAggregateVersionModelFor, AggregateVersion } from './v5/AggregateVersion';
 import { mongoose } from '@typegoose/typegoose';
 import { ILogger } from './ILogger';
+import { Claim } from './v5/Claim';
 
 export type EventModifierCallback = (sourceEvent: v4Event, destinationEvent: Event) => boolean;
 
@@ -37,15 +38,18 @@ export class EventStoreConverter {
         const cursor = await this._commitModel.find().cursor();
 
         let sequenceNumber = 0;
+        let docCount = 0;
 
         for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
             const commit = doc as Commit;
 
             for (const sourceEvent of commit.events) {
+
+
                 const destinationEvent = new Event();
                 destinationEvent._id = sequenceNumber;
                 destinationEvent.ExecutionContext = this.getExecutionContextFrom(sourceEvent);
-                destinationEvent.Metadata = this.getMetadataFrom(sourceEvent, sequenceNumber);
+                destinationEvent.Metadata = this.getMetadataFrom(sourceEvent);
                 destinationEvent.Aggregate = this.getAggregateFrom(sourceEvent);
                 destinationEvent.EventHorizon = this.getEmptyEventHorizon();
                 destinationEvent.Content = this.getContentFrom(sourceEvent);
@@ -61,7 +65,11 @@ export class EventStoreConverter {
                     sequenceNumber++;
                 }
             }
+
+            docCount++;
         }
+
+        this._logger.info(`${docCount} source events, ${sequenceNumber} destination events`);
     }
 
     private getContentFrom(sourceEvent: v4Event) {
@@ -84,10 +92,9 @@ export class EventStoreConverter {
         return content;
     }
 
-    private getMetadataFrom(sourceEvent: v4Event, sequenceNumber: number) {
+    private getMetadataFrom(sourceEvent: v4Event) {
         return {
             Occurred: new Date(sourceEvent.occurred),
-            EventLogSequenceNumber: sequenceNumber,
             EventSource: sourceEvent.eventsource_id,
             TypeId: sourceEvent.event_artifact,
             TypeGeneration: 1,
@@ -108,7 +115,7 @@ export class EventStoreConverter {
                 PreRelease: ''
             },
             Environment: sourceEvent.original_context.environment,
-            Claims: []
+            Claims: [] as Claim[]
         };
     }
 

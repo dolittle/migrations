@@ -4,8 +4,9 @@
 import { Guid } from '@dolittle/rudiments';
 import { ExecutionContext } from './ExecutionContext';
 import { guid } from '../guid';
-import { prop } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 
+@modelOptions({ options: { customName: 'EventV4' } })
 export class Event {
     @guid(false)
     _id?: Guid;

@@ -6,9 +6,8 @@ import { prop, getModelForClass, modelOptions, Severity, ReturnModelType } from 
 import { guid } from '../guid';
 import { Event } from './Event';
 import { Connection, Model, Document } from 'mongoose';
-import { ICustomOptions } from '@typegoose/typegoose/lib/types';
 
-@modelOptions({ schemaOptions: { collection: 'commits' }, options: { allowMixed: Severity.ALLOW } })
+@modelOptions({ schemaOptions: { collection: 'commits' }, options: { customName: 'CommitV4', allowMixed: Severity.ALLOW } })
 export class Commit {
     @prop()
     _id?: number;

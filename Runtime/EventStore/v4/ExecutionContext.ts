@@ -4,8 +4,9 @@
 import { Guid } from '@dolittle/rudiments';
 import { Claim } from './Claim';
 import { guid } from '../guid';
-import { prop } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 
+@modelOptions({ options: { customName: 'ExecutionContextV4' } })
 export class ExecutionContext {
     @guid(false)
     application!: Guid;

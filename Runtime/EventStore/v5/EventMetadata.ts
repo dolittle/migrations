@@ -3,8 +3,9 @@
 
 import { Guid } from '@dolittle/rudiments';
 import { guid } from '../guid';
-import { prop } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 
+@modelOptions({ options: { customName: 'EventMetadataV5' } })
 export class EventMetadata {
     @prop()
     Occurred!: Date;
@@ -20,7 +21,4 @@ export class EventMetadata {
 
     @prop()
     Public!: boolean;
-
-    @prop()
-    EventLogSequenceNumber!: number;
 }

@@ -10,7 +10,7 @@ import { prop, getModelForClass, modelOptions, Severity } from '@typegoose/typeg
 import { guid } from '../guid';
 import { Connection, Model, Document } from 'mongoose';
 
-@modelOptions({ schemaOptions: { collection: 'event-log' }, options: { allowMixed: Severity.ALLOW } })
+@modelOptions({ schemaOptions: { collection: 'event-log', versionKey: false }, options: { allowMixed: Severity.ALLOW, customName: 'EventV5' } })
 export class Event {
     @prop()
     _id?: number;
@@ -37,5 +37,5 @@ export class Event {
 export const EventModel = getModelForClass(Event);
 
 export function getEventModelFor(connection: Connection): Model<Document> {
-    return connection.model('Event', EventModel.schema);
+    return connection.model('EventV5', EventModel.schema);
 }
