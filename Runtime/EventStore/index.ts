@@ -12,7 +12,7 @@ import './StringExtensions';
 configureLogging();
 export const logger = Container.get(ILogger);
 
-
+/*
 import mongoose from 'mongoose';
 import { EventStoreConverter } from './EventStoreConverter';
 
@@ -41,3 +41,4 @@ import { EventStoreConverter } from './EventStoreConverter';
         logger.error(`Couldn't connect to Mongo : '${e}'`);
     }
 })();
+*/
