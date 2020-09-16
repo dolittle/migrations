@@ -30,7 +30,8 @@ export class EventStoreConverter {
     }
 
     async convert() {
-        this.dropExistingCollections();
+        await this.dropExistingCollections();
+        await this.createCollections();
 
         const total = await this._commitModel.countDocuments();
         this._logger.info(`Starting to convert ${total} commits into events`);
@@ -171,8 +172,13 @@ export class EventStoreConverter {
         return version;
     }
 
-    private dropExistingCollections() {
-        this._destinationConnection.dropCollection('event-log');
-        this._destinationConnection.dropCollection('aggregates');
+    private async dropExistingCollections() {
+        await this._destinationConnection.dropCollection('event-log');
+        await this._destinationConnection.dropCollection('aggregates');
+    }
+
+    private async createCollections() {
+        await this._destinationConnection.createCollection('event-log');
+        await this._destinationConnection.createCollection('aggregates');
     }
 }
