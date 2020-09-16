@@ -173,8 +173,13 @@ export class EventStoreConverter {
     }
 
     private async dropExistingCollections() {
-        await this._destinationConnection.dropCollection('event-log');
-        await this._destinationConnection.dropCollection('aggregates');
+        try {
+            await this._destinationConnection.dropCollection('event-log');
+            await this._destinationConnection.dropCollection('aggregates');
+        } catch (ex) {
+            this._logger.info(`Problems dropping collections: ${ex}`)
+
+        }
     }
 
     private async createCollections() {
