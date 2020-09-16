@@ -177,7 +177,7 @@ export class EventStoreConverter {
             await this._destinationConnection.dropCollection('event-log');
             await this._destinationConnection.dropCollection('aggregates');
         } catch (ex) {
-            this._logger.info(`Problems dropping collections: ${ex}`)
+            this._logger.info(`Problems dropping collections: ${ex}`);
 
         }
     }
