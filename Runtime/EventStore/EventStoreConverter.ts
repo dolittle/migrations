@@ -12,6 +12,8 @@ import { mongoose } from '@typegoose/typegoose';
 import { ILogger } from './ILogger';
 import { Claim } from './v5/Claim';
 
+import { SingleBar, Presets } from 'cli-progress';
+
 export type EventModifierCallback = (sourceEvent: v4Event, destinationEvent: Event) => boolean;
 
 export class EventStoreConverter {
@@ -33,8 +35,14 @@ export class EventStoreConverter {
         await this.dropExistingCollections();
         await this.createCollections();
 
+
         const total = await this._commitModel.countDocuments();
         this._logger.info(`Starting to convert ${total} commits into events`);
+
+        const bar = new SingleBar({
+            format: 'Commits: {bar} | {percentage}% | ETA: {eta}s | {value}/{total}'
+        }, Presets.shades_grey);
+        bar.start(total, 0);
 
         const cursor = await this._commitModel.find().cursor();
 
@@ -61,14 +69,16 @@ export class EventStoreConverter {
                     destinationEvent.Aggregate.Version = await this.getAggregateVersionFor(sourceEvent);
 
                     await this._eventModel.create(destinationEvent);
-
-                    process.stdout.write('.');
                     sequenceNumber++;
                 }
             }
 
+            bar.increment();
             docCount++;
         }
+
+        bar.stop();
+
 
         this._logger.info('');
         this._logger.info(`Converted ${docCount} commits into ${sequenceNumber} events`);
