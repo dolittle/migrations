@@ -360,8 +360,9 @@ public class MyPublicEvent : IPublicEvent
 }
 ```
 
-For public events to actually be made public there is a filter mechanism you have to provide to select
-which events should go public.
+For public events to actually be made public there is a filter mechanism you **have** to provide to select
+which events should go public. There is currently no way to ignore having a filter, even if you want all
+public events to go public.
 
 By implementing the interface `ICanFilterPublicEvents` and adorning the class with a `[Filter([guid])]` attribute,
 the SDK will discover your filter and call it for any potential public events.
