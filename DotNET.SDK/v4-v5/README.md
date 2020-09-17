@@ -299,12 +299,13 @@ by the filters unique identifier.
 ### Streams
 
 Streams are front and center for everything events within the runtime.
-As mentioned earlier, filters decide whether or not an event should be in a stream.
-A stream is an immutable definition of what events are in it - with an append only
-behavior. This means a filter can't change its definition if there are existing events
-that will be included by the new filter definition. This is what we mean by append only.
-New events that has not appeared in the event log after the definition changed will
-be accepted.
+A stream contains a subset of the event in the event log, and is defined by a filter
+(almost like a query of the event log). Streams are used to select a set of events that
+are useful for a specific purpose, for example for building a read model. A stream is an
+immutable definition of what events are in it - with an append only behavior. This means
+a filter can't change its definition if there are existing events that will be included
+by the new filter definition. This is what we mean by append only. New events that has
+not appeared in the event log before the definition changed will be accepted.
 
 ### EventHandlers instead of EventProcessors
 
@@ -360,15 +361,19 @@ public class MyPublicEvent : IPublicEvent
 }
 ```
 
-For public events to actually be made public there is a filter mechanism you **have** to provide to select
-which events should go public. There is currently no way to ignore having a filter, even if you want all
-public events to go public.
+For public events to be made available to other microservices over the event horizon,
+they need to be placed into a public stream. As with streams you define for use internally
+within your microservice, public streams are also groups of events for a particular purpose.
+More concretely, streams (and the partitions within) is the level of which you can control
+access to your microservices events, through consents.
 
 By implementing the interface `ICanFilterPublicEvents` and adorning the class with a `[Filter([guid])]` attribute,
-the SDK will discover your filter and call it for any potential public events.
+the SDK will discover your filter and call it for any potential public events. For the events provided to your
+filter, you should decide whether the event should be included in this public stream, and if so, in what partition.
 
-If you want to allow all public events, you can provide a simple filter like below:
-
+You can choose what events to make public based on the data of the event, or the type.
+For example, a public filter that publishes all events of type `MyPublicEvent`, and has a partition for
+each `CustomerId`, the filter could look like this:
 ```csharp
 using Dolittle.Events;
 using Dolittle.Events.Filters.EventHorizon;
@@ -378,7 +383,12 @@ public class AllPublicEvents : ICanFilterPublicEvents
 {
     public Task<PublicFilterResult> Filter(IPublicEvent @event, EventContext context)
     {
-        return Task.FromResult(new PublicFilterResult(true, PartitionId.Unspecified));
+        if (@event is MyPublicEvent)
+        {
+            return Task.FromResult(new PublicFilterResult(true, @event.CustomerId));
+        }
+
+        return Task.FromResult(new PublicFilterResult(false, PartitionId.Unspecified));
     }
 }
 ```
@@ -388,8 +398,11 @@ All the events will then be added to a public stream with the identifier given t
 ### Scopes
 
 When a microservice gets events over the event horizon from another microservice, it needs to put these
-into a stream that is not the main event log. Since the events coming from the other microservice is not
-yours, you tell the runtime which scope - a special purposed stream - the events should go into.
+into a scoped event log that is not the main event log. This is meant to separate events that are received
+through subscriptions to other microservices (which might change over time), from events in your main event
+log which represents an unchanging source of truth for your microservice. For each of the subscriptions
+you configure for the event horizon, you must therefore tell it what scoped event log you want the events
+to go into.
 
 ### Configuring event-horizons.json
 
@@ -420,11 +433,12 @@ runtime configuration of two runtimes.
 
 ### Configuring event-horizon-consents.json
 
-On the producing microservice, you need to consent to the microservice that wants public events from you.
+On the producing microservice, you need to consent to the microservice and tenant that wants public events from you.
 This is done through the `event-horizon-consents.json` file.
 
 The file conists of a key/value pair of `tenant identifier` to configuration object that tells which microservice
-for which `tenant identifier` from what stream and partition and an identifier of the consent object itself.
+for which `tenant identifier` from what stream and partition and an identifier of the consent object itself. The
+consent identifier is not used for anything other than audit logs of subscriptions as of now.
 
 ```json
 {
@@ -437,7 +451,8 @@ for which `tenant identifier` from what stream and partition and an identifier o
             "consent": "1decd852-3743-4fe8-be01-bb4e76d70ec2"
         }
     ]
-}```
+}
+```
 
 Recommend looking at the [configuration sample for multiple microservices](./MultipleEnvironment) for a complete
 runtime configuration of two runtimes.
@@ -445,8 +460,9 @@ runtime configuration of two runtimes.
 
 ### Configuring microservices.json
 
-The runtimes that are connecting to other runtimes need to be able to map from the identifier of the microservice
-to where it actually is. This is done by giving a `microservices.json` file to the runtime.
+The runtimes that are connecting to the runtimes of other microservices need to be able to map from the identifier
+of the microservice to where it actually is. This is done by giving a `microservices.json` file to the runtime which
+is going to use the event horizon to retrieve events from another runtime.
 
 The file consists of a key/value pair of `microservice identifier` to configuration object that tells it which host
 and port the microservice is on.
@@ -465,6 +481,19 @@ runtime configuration of two runtimes.
 
 ### Handling external events
 
+Since events received from other microservices over the event horizon are kept separate from you own internal events
+in a scoped event log, they also need special _external_ event handlers to process them. This makes it easier to
+re-subscribe or change the structure of your internal and external events separately. These external event handlers
+are registered to a specific scope, which corresponds to the scope you configured for the event horizon subscriptions
+in the `event-horizons.json` file.
+
+As external event handlers and regular event handlers work independently (and on separate event logs), you cannot
+mix handling of internal and external events in the same handler. As you usually want to process events from other
+microservices alongside your internally committed ones, you should commit your own version of an external event
+into your own event log so that the processing will be consistent over time.
+
+This can be accomplished with the following code:
+
 ```csharp
 using Dolittle.Events;
 using Dolittle.Events.Handling.EventHorizon;
@@ -473,9 +502,21 @@ using Dolittle.Events.Handling.EventHorizon;
 [Scope("e8c46458-2388-4a78-8a0f-33f5d066a106")]
 public class MyExternalEventsHandler : ICanHandleExternalEvents
 {
-    public Task Handle(OtherMicroserviceEvent @event, EventContext context)
+    readonly IEventStore _eventStore;
+
+    public class MyExternalEventsHandler(IEventStore eventStore)
     {
-        return Task.Completed;
+        _eventStore = eventStore;
+    }
+
+    public async Task Handle(OtherMicroserviceEvent @event, EventContext context)
+    {
+        var events = new UncommittedEvents();
+        var myOwnCopy = new MyOwnRepresentationOfOtherMicroserviceEvent(
+            @event.interesting,
+            @event.data);
+        events.Append(context.EventSourceId, myOwnCopy);
+        await _eventStore.Commit(events);
     }
 
 }
