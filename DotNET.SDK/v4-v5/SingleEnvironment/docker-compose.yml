@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  mongo:
+    image: dolittle/mongodb
+    hostname: mongo
+    volumes:
+      - ${PWD}/data:/data
+    ports:
+      - 27017:27017
+ 
+  runtime:
+    image: dolittle/runtime:5.0.1
+    volumes:
+      - ${PWD}/appsettings.json:/app/appsettings.json
+      - ${PWD}/resources-first.json:/app/resources.json
+      - ${PWD}/tenants.json:/app/tenants.json
+      - ${PWD}/microservices.json:/app/microservices.json
+      - ${PWD}/event-horizon-consents.json:/app/event-horizon-consents.json
+    ports:
+      - 9700:9700
+      - 50052:50052
+      - 50053:50053
