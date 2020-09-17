@@ -5,6 +5,7 @@
 ## Getting started
 
 **This guide will assume TypeScript and using Yarn - it is not a requirement**
+
 Start by creating a folder for your migrator.
 
 Then initialize the package.
