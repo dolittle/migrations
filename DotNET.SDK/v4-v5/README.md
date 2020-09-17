@@ -1,5 +1,9 @@
 # Version 4 to 5
 
+In this guide you'll find a comprehensive walkthrough of what you have to do to upgrade
+your solution to version 5 of Dolittle. You'll also find a few tips & tricks as well as
+guidance to keep in mind when developing using Dolittle.
+
 ## Intro
 
 We are committed to backwards compatibility and strive towards not having breaking
@@ -7,7 +11,8 @@ changes in our APIs. With version 5 this is also true, but we've made some under
 architectural changes that has caused some breaking changes.
 
 The biggest change with version 5 is that you no longer compile all the capabilities
-into your solution. Parts have been formalized into a separate a `Runtime` component in the form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
+into your solution. Parts have been formalized into a separate a `Runtime` component in the
+form of a [Docker image](https://hub.docker.com/r/dolittle/runtime)
 that needs to be running. The SDK is then connecting to this using [gRPC](https://grpc.io).
 Since all calls that involves the `Runtime` component having to work is now out-of-process
 and inherently asynchronous in nature, there are things that would've "just worked" before
@@ -15,7 +20,7 @@ that does not work in the same way anymore. This is usually related to things li
 carrying the payload of a command, once entering an AggregateRoot, the events and processing
 of these is handed over to the runtime and it will call back to your code. This means that
 the async context in .NET is different and things you might have relied on to be there, might
-not be there. 
+not be there.
 
 The implication of this is typically that you need to add more to your events so that your
 event handler has access to it. From an event design perspective, this is more accurate and
@@ -78,7 +83,7 @@ public class Program
     {
         CreateHostBuilder(args).Build().Run();
     }
-    
+
     static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             // Add this for Dolittle
@@ -133,10 +138,10 @@ public class Program
             .WriteTo.Console();
 
         Log.Logger = loggerConfiguration.CreateLogger();
-        
+
         CreateHostBuilder(args).Build().Run();
     }
-    
+
     static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             // Add this for Serilog 
@@ -174,10 +179,10 @@ all requests are included for setting the Dolittle Execution Context correctly:
 
 ```csharp
 app.UseDolittleExecutionContext();
-``` 
+```
 
 If you want to provide your own mechanism for setting the correct tenant, for instance
-based on claims. You could quite easily implement this: 
+based on claims. You could quite easily implement this:
 
 ```csharp
 public class ExecutionContextMiddleware
@@ -192,21 +197,21 @@ public class ExecutionContextMiddleware
         _next = next;
         _executionContextManager = executionContextManager;
     }
-    
+
     public Task InvokeAsync(HttpContext context)
     {
         var claim = httpContext.User.Claims.First(c => c.Name == "tid"); // looking for a claim name of 'tid';
-        if( claim ) 
+        if( claim )
         {
             var tenantId = Guid.Parse(claim.Value);
             var claims = new Claims(context.User.Claims.Select(c => new Claim(c.Type, c.Value, c.ValueType)));
             _executionContextManager.CurrentFor(tenantId, CorrelationId.new(), claims);
         }
-        
+
         return _next.Invoke(context);
     }
 }
-``` 
+```
 
 ## API Changes
 
@@ -234,12 +239,12 @@ Creating a new instance is done in the following manner.
 public class MyCommandHandler : ICanHandleCommands
 {
     IAggregateOf<MyAggregate>   _myAggregate;
-    
+
     public MyCommandHandler(IAggregateOf<MyAggregate> myAggregate)
     {
         _myAggregate = myAggregate;
     }
-    
+
     public void Handle(DoStuff command)
     {
         _myAggregate
@@ -249,7 +254,6 @@ public class MyCommandHandler : ICanHandleCommands
 }
 ```
 
-
 #### Rehydrate
 
 Rehydrating and perform additional tasks on an instance is done in the following manner.
@@ -258,21 +262,20 @@ Rehydrating and perform additional tasks on an instance is done in the following
 public class MyCommandHandler : ICanHandleCommands
 {
     IAggregateOf<MyAggregate>   _myAggregate;
-    
+
     public MyCommandHandler(IAggregateOf<MyAggregate> myAggregate)
     {
         _myAggregate = myAggregate;
     }
-    
+
     public void Handle(DoMoreStuff command)
     {
         _myAggregate
-            .Rehydrage(command.Id.value)
+            .Rehydrate(command.Id.value)
             .Perform(_ => _.DoMoreStuff(command.SomeInput));
     }
 }
 ```
-
 
 ## Events
 
@@ -312,7 +315,7 @@ You'd have something like this:
 ```csharp
 public class MyEventProcessor : ICanProcessevents
 {
-    [EventProcessor("<guid>")
+    [EventProcessor("008063cc-8b23-4793-b955-dba91542dd69")
     public void Process(MyEvent @event)
     {
         // Process....
@@ -327,14 +330,19 @@ of events.
 In version 5 this has been completely taken out and replaced with something called
 EventHandlers. EventHandlers are in fact a specialized type of filter that filters
 based on the types the implementing class can handle. This filter definition is what
-is used to define the stream.
+is used to define the stream. The first parameter for the attribute is
+the unique identifier of the event handlers stream.
 
 ```csharp
-[EventHandler("<guid>")]
+[EventHandler("008063cc-8b23-4793-b955-dba91542dd69")]
 public class MyEventHandler : ICanHandleEvents
 {
 }
 ```
+
+### Public events and scopes
+
+[TODO: NEEDS FLESHING OUT]
 
 ## Runtime
 
@@ -342,14 +350,149 @@ In version 5, the Runtime is no longer an in-process component of your solution.
 It has been separated out and you need it to be running and the SDK connecting
 to it.
 
+The easiest way to run it locally is to grab the [Docker image](https://hub.docker.com/r/dolittle/runtime)
+and configure it properly. Recomment looking [here](./SingleEnvironment) for an
+example of how to configure it running.
+
+### Additional programming languages
+
+With version 5 and the separation of the runtime we've enabled the scenario of
+multiple programming languages. This is done through exposing a gRPC API surface from
+the runtime, enabling anything to connect to.
+
+The recognize that the raw gRPC surface is probably not very helpful, and is therefor
+working on providing more language idiomatic SDKs for working with the runtime.
+First one out is our NodeJS / JavaScript SDK.
+You can find it on NPM [here](https://www.npmjs.com/package/@dolittle/sdk).
+It is maintained on GitHub [here](https://github.com/dolittle/javascript.sdk).
+In the repository you'll a couple of [samples](https://github.com/dolittle/JavaScript.SDK/tree/master/Samples).
+
 ## Configuration
 
 ### Resources
 
+With version 4, all resources were owned by the Dolittle SDK and configured for the same
+process of your running code. In version 5 with the formalization of the runtime as a separate
+running process / instance, all configuration related to the event store should therefor
+come out of the `resources.json` file in the `.dolittle` folder siting typically in the startup
+project of your microservice. This should then be moved into a `resources.json` file that then
+sits together with the runtime.
+
+If you have a `resources.json` that looks like below:
+
+```json
+{
+    "bb71d84c-e82d-4694-8252-2bc94123eb92": {
+        "readModels": {
+            "host": "mongodb://localhost:27017",
+            "database": "readmodels",
+            "useSSL": false
+        },
+        "eventStore": {
+            "host": "mongodb://localhost:27017",
+            "database": "eventstore",
+            "useSSL": false
+        }
+    }
+}
+```
+
+You want to extract the **"eventStore"** key and content and copy it into the `resources.json`
+file for the runtime.
+
+You'd then end up with the following your solution:
+
+```json
+{
+    "bb71d84c-e82d-4694-8252-2bc94123eb92": {
+        "readModels": {
+            "host": "mongodb://localhost:27017",
+            "database": "readmodels",
+            "useSSL": false
+        }
+    }
+}
+```
+
+And this for your runtime:
+
+```json
+{
+    "bb71d84c-e82d-4694-8252-2bc94123eb92": {
+        "eventStore": {
+            "host": "mongodb://localhost:27017",
+            "database": "eventstore",
+            "useSSL": false
+        }
+    }
+}
+```
+
 ### Event Horizon
 
+With version 5, the configuration of event horizon has changed. The concept of consent has been introduced,
+meaning that the microservice and its runtime that holds events that other microservices are interested in
+needs to consent explicitly to the microservice connecting for the tenant it wants events for and for a specific scope.
+
+The runtime looks for a file called `event-horizon-consents.json` in the `.dolittle` folder.
+
+## Tips and Tricks
+
+### Development environment
+
+Leveraging [docker-compose](https://docs.docker.com/compose/) you can make a consistent development environment for your
+microservice(s). You can find an example of how you could set up a single microservice environment [here](./SingleEnvironment)
+and for a multi-microservice setup; [here](./MultipleEnvironment).
+
+With Docker compose, you can now simply run the following from your terminal from the folder of your environment:
+
+```shell
+$ docker-compose up
+```
+
+A tip would then be to have a folder called `Environment` at the root of the repository and keep the files there for
+everyone on the team to use.
+
+Docker compose will also retain the database state between runs, unless you explicitly do `docker-compose down` in a terminal
+in the folder of your environment.
+
+### Navigating the event store
+
+There has been an effort in structuring how the events are stored within MongoDB to make it
+human readable.
+
+In your favorite MongoDB tool, you will notice there are a few collections.
+
+| Nane | Description |
+| ---- | ----------- |
+| aggregates | If your system has aggregates, this is holding version information about aggregates for concurrency purposes |
+| event-log | This is the main event log where all the events are stored |
+| stream-definitions | Holds information about the different definitions of streams |
+| stream-processor-states | Holds status, positioning and possible failed partitions with reasons for every processor in the system |
+| stream-[guid] | Every stream sits with its own unique identifier added to the name |
+
+Below you can see how it looks in MongoDB Compass and how a specific streams collection is named:
+
+![](./mongodb_stream.png)
+
+Every event you can expand and look at all the execution context, metadata, aggregate, event horizon and content:
+
+![](./event.png)
+
+### Failed partitions
+
+In the `stream-processor-states` collection you can find the current status; whether it has failed or not, the current position
+the processor has (typically your event handler). If it has any failures, it holds an array of failed partitions.
+The partitions is by default for an event handler the unique identifier of the event source.
 
 ## Guidance
+
+### Nullables on events
+
+Nullable values are not supported on events. If you introduce a property that is missing on
+already committed events, while replaying these - the SDK will fail for the event handler /
+processor due to serialization issues with the missing property. The serializer is not capable
+of distinguishing nullables from non-nullables and requires a value for it.
 
 ### Events, replay and idempotency
 
