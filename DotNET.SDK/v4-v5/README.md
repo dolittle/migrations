@@ -520,6 +520,12 @@ action and it is therefor vital that information is on the events.
 
 Another benefit of making this explicit is that you get well formed events that tell a story.
 
+If you have event processors / event handlers that work with a database and handles an
+event by explicitly creating entries in the database, you should consider moving to using
+the idea of **upsert** (insert or update). This will then help you enable replay scenarios
+without creating duplicates in the database, If an entity is already there, just update it.
+MongoDB has this concept built in and is called `upsert` - you can find more details [here](https://docs.mongodb.com/manual/reference/method/db.collection.update/).
+
 ### ExecutionContext
 
 The execution context that exists in Dolittle, holds information that is relevant to
