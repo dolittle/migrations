@@ -343,9 +343,142 @@ public class MyEventHandler : ICanHandleEvents
 }
 ```
 
-### Public events and scopes
+### Public events
 
-[TODO: NEEDS FLESHING OUT]
+In version 5 there is a formalization around what constitutes a public event. These
+are often different in shape than your private events and need to have more or other
+information on them in order for external parties to make sense of them.
+
+The first thing you'll need is to implement the interface `IPublicEvent` to let the
+SDK know what are marked as potential public events.
+
+```csharp
+using Dolittle.Events;
+
+public class MyPublicEvent : IPublicEvent
+{
+}
+```
+
+For public events to actually be made public there is a filter mechanism you have to provide to select
+which events should go public.
+
+By implementing the interface `ICanFilterPublicEvents` and adorning the class with a `[Filter([guid])]` attribute,
+the SDK will discover your filter and call it for any potential public events.
+
+If you want to allow all public events, you can provide a simple filter like below:
+
+```csharp
+using Dolittle.Events;
+using Dolittle.Events.Filters.EventHorizon;
+
+[Filter("606b0fc0-bd69-4034-9dcc-c142e38f484a")]
+public class AllPublicEvents : ICanFilterPublicEvents
+{
+    public Task<PublicFilterResult> Filter(IPublicEvent @event, EventContext context)
+    {
+        return Task.FromResult(new PublicFilterResult(true, PartitionId.Unspecified));
+    }
+}
+```
+
+All the events will then be added to a public stream with the identifier given to the filter attribute.
+
+### Scopes
+
+When a microservice gets events over the event horizon from another microservice, it needs to put these
+into a stream that is not the main event log. Since the events coming from the other microservice is not
+yours, you tell the runtime which scope - a special purposed stream - the events should go into.
+
+### Configuring event-horizons.json
+
+Within your applications startup project, inside the `.dolittle` folder where you have other Dolittle related
+configuration files, you will be needing a file called `event-horizons.json`.
+The purpose of this file is to configure which microservices you're interested in events from.
+
+The file consist of a key/value pair of `tenant identifier` defining the source tenant to a configuration
+object that holds information about which microservice to get from and into which scope, stream, target tenant
+and partition.
+
+```json
+{
+    "abcfc9dd-9c9b-42a1-bb9d-277e7dcb0a86": [
+        {
+            "scope": "e8c46458-2388-4a78-8a0f-33f5d066a106",
+            "microservice": "afa51d6e-8851-49ca-b294-884a033d2160",
+            "tenant": "445f8ea8-1a6f-40d7-b2fc-796dba92dc44",
+            "stream": "386c5e44-fc7f-461b-a0d2-4a466a91f054",
+            "partition": "abcfc9dd-9c9b-42a1-bb9d-277e7dcb0a86"
+        }
+    ]
+}
+```
+
+Recommend looking at the [configuration sample for multiple microservices](./MultipleEnvironment) for a complete
+runtime configuration of two runtimes.
+
+### Configuring event-horizon-consents.json
+
+On the producing microservice, you need to consent to the microservice that wants public events from you.
+This is done through the `event-horizon-consents.json` file.
+
+The file conists of a key/value pair of `tenant identifier` to configuration object that tells which microservice
+for which `tenant identifier` from what stream and partition and an identifier of the consent object itself.
+
+```json
+{
+    "900893e7-c4cc-4873-8032-884e965e4b97": [
+        {
+            "microservice": "afa51d6e-8851-49ca-b294-884a033d2160",
+            "tenant": "900893e7-c4cc-4873-8032-884e965e4b97",
+            "stream": "2c087657-b318-40b1-ae92-a400de44e507",
+            "partition": "00000000-0000-0000-0000-000000000000",
+            "consent": "1decd852-3743-4fe8-be01-bb4e76d70ec2"
+        }
+    ]
+}```
+
+Recommend looking at the [configuration sample for multiple microservices](./MultipleEnvironment) for a complete
+runtime configuration of two runtimes.
+
+
+### Configuring microservices.json
+
+The runtimes that are connecting to other runtimes need to be able to map from the identifier of the microservice
+to where it actually is. This is done by giving a `microservices.json` file to the runtime.
+
+The file consists of a key/value pair of `microservice identifier` to configuration object that tells it which host
+and port the microservice is on.
+
+```json
+{
+    "67297c78-7934-401f-a000-74810a8aca49": {
+        "host": "localhost",
+        "port": "50052"
+    }
+}
+```
+
+Recommend looking at the [configuration sample for multiple microservices](./MultipleEnvironment) for a complete
+runtime configuration of two runtimes.
+
+### Handling external events
+
+```csharp
+using Dolittle.Events;
+using Dolittle.Events.Handling.EventHorizon;
+
+[EventHandler("cf12eb62-444a-42db-8547-fd9d9f318ff4")]
+[Scope("e8c46458-2388-4a78-8a0f-33f5d066a106")]
+public class MyExternalEventsHandler : ICanHandleExternalEvents
+{
+    public Task Handle(OtherMicroserviceEvent @event, EventContext context)
+    {
+        return Task.Completed;
+    }
+
+}
+```
 
 ### Migrating an existing event store
 
@@ -525,6 +658,18 @@ event by explicitly creating entries in the database, you should consider moving
 the idea of **upsert** (insert or update). This will then help you enable replay scenarios
 without creating duplicates in the database, If an entity is already there, just update it.
 MongoDB has this concept built in and is called `upsert` - you can find more details [here](https://docs.mongodb.com/manual/reference/method/db.collection.update/).
+
+### Events from other microservices
+
+Since your system is not the owner - or creator - of the events coming from another microservice,
+but they might have enough significance for you to want to keep a copy in your own event store and main event log.
+You can simply take a dependency to the interface `IEventStore` and use the `Commit()` methods to do so.
+
+Often however, the information coming from another microservice is not exactly how you want to model
+your private events. You would typically then model explicitly your own needs or reuse event types you
+already have and copy the necessary information over to those and then commit it to the event store.
+This is often the case when you are modelling invariants explicitly as aggregate roots and have to
+guarantee the consistency.
 
 ### ExecutionContext
 
