@@ -346,7 +346,7 @@ public class MyEventHandler : ICanHandleEvents
 ### Public events
 
 In version 5 there is a formalization around what constitutes a public event. These
-are often different in shape than your private events and need to have more or other
+are often different in shape than your private events and may need to have more or other
 information on them in order for external parties to make sense of them.
 
 The first thing you'll need is to implement the interface `IPublicEvent` to let the
