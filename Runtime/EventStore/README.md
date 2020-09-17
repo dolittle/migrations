@@ -14,6 +14,9 @@ Then initialize the package.
 $ npm init
 ```
 
+Since this guide is based on TypeScript, we want to add that as a developer dependency, and we're leveraging 'ts-node' for
+easy running.
+
 ```shell
 $ yarn add -D typescript ts-node
 ```
@@ -99,6 +102,16 @@ The logger is optional, but can prove handy for outputting information during th
 
     logger.info('Done converting');
 })();
+```
+
+Notice the connection strings at the top and `dbName` properties for the connections.
+If you have multiple event stores to migrate, for instance for multiple tenants, you can quite easily create
+a loop doing this for all.
+
+If you don't need any custom transformations, you can now just run it from your terminal:
+
+```shell
+$ yarn start
 ```
 
 ### Transforming events during migration
