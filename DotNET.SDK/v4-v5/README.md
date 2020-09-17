@@ -4,6 +4,9 @@ In this guide you'll find a comprehensive walkthrough of what you have to do to 
 your solution to version 5 of Dolittle. You'll also find a few tips & tricks as well as
 guidance to keep in mind when developing using Dolittle.
 
+**If you're looking to migrate a version 3 or 4 of an existing event store, please go [here](../../Runtime/EventStore)
+for more details.**
+
 ## Intro
 
 We are committed to backwards compatibility and strive towards not having breaking
@@ -343,6 +346,12 @@ public class MyEventHandler : ICanHandleEvents
 ### Public events and scopes
 
 [TODO: NEEDS FLESHING OUT]
+
+### Migrating an existing event store
+
+If you already have events in a version 4 or earlier type of event store, you need to
+migrate this. We have a NPM package that can be used to help you achieve this.
+Read more about it [here](../../Runtime/EventStore).
 
 ## Runtime
 
