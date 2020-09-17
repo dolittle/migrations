@@ -173,7 +173,7 @@ We recommend using the following:
 
 In version 4 we had the concept of a tenancy resolver that could be implemented for
 controlling how to resolve the tenant identifier in the current context.
-This has been removed, and we it is recommended to either use the built-in middleware
+This has been removed, and we recommended to either use the built-in middleware
 for ASP.NET Core that we provide or build your own.
 
 If you want to use the built-in one, put the following line of code within the
