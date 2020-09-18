@@ -164,7 +164,7 @@ export class EventStoreConverter {
                 ...aggregateVersionCriteria,
                 ...{
                     _id: new mongoose.mongo.ObjectId(),
-                    Version: 1
+                    Version: 0
                 }
             });
         } else {
