@@ -25,7 +25,12 @@ export class EventStoreConverter {
         private readonly _sourceConnection: Connection,
         private readonly _destinationConnection: Connection,
         private readonly _logger: ILogger,
-        private readonly _modifierCallback: EventModifierCallback = (s, d) => true) {
+        private readonly _modifierCallback?: EventModifierCallback) {
+
+        if (!_modifierCallback) {
+            _modifierCallback = (s, d) => true;
+        }
+
         this._commitModel = getCommitModelFor(_sourceConnection);
         this._eventModel = getEventModelFor(_destinationConnection);
         this._aggregateModel = getAggregateVersionModelFor(_destinationConnection);
@@ -34,7 +39,6 @@ export class EventStoreConverter {
     async convert() {
         await this.dropExistingCollections();
         await this.createCollections();
-
 
         const total = await this._commitModel.countDocuments();
         this._logger.info(`Starting to convert ${total} commits into events`);
@@ -53,8 +57,6 @@ export class EventStoreConverter {
             const commit = doc as Commit;
 
             for (const sourceEvent of commit.events) {
-
-
                 const destinationEvent = new Event();
                 destinationEvent._id = sequenceNumber;
                 destinationEvent.ExecutionContext = this.getExecutionContextFrom(sourceEvent);
@@ -65,7 +67,7 @@ export class EventStoreConverter {
 
                 this.getContentFrom(sourceEvent);
 
-                if (this._modifierCallback(sourceEvent, destinationEvent)) {
+                if (this._modifierCallback!(sourceEvent, destinationEvent)) {
                     destinationEvent.Aggregate.Version = await this.getAggregateVersionFor(sourceEvent);
 
                     await this._eventModel.create(destinationEvent);
@@ -78,7 +80,6 @@ export class EventStoreConverter {
         }
 
         bar.stop();
-
 
         this._logger.info('');
         this._logger.info(`Converted ${docCount} commits into ${sequenceNumber} events`);
