@@ -158,7 +158,7 @@ export class EventStoreConverter {
         };
         const hasAggregate = await this._aggregateModel.exists(aggregateVersionCriteria);
 
-        let version: number = 1;
+        let version: number = 0;
 
         if (!hasAggregate) {
             await this._aggregateModel.create({
