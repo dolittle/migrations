@@ -68,8 +68,7 @@ export class EventStoreConverter {
                 this.getContentFrom(sourceEvent);
 
                 if (this._modifierCallback!(sourceEvent, destinationEvent)) {
-                    destinationEvent.Aggregate.Version = await this.getAggregateVersionFor(sourceEvent);
-
+                    destinationEvent.Aggregate.Version = await this.getAggregateVersionFor(sourceEvent) - 1;
                     await this._eventModel.create(destinationEvent);
                     sequenceNumber++;
                 }
