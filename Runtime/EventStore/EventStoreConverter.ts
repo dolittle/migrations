@@ -158,14 +158,14 @@ export class EventStoreConverter {
         };
         const hasAggregate = await this._aggregateModel.exists(aggregateVersionCriteria);
 
-        let version: number = 0;
+        let version: number = 1;
 
         if (!hasAggregate) {
             await this._aggregateModel.create({
                 ...aggregateVersionCriteria,
                 ...{
                     _id: new mongoose.mongo.ObjectId(),
-                    Version: 0
+                    Version: 1
                 }
             });
         } else {
