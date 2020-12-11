@@ -83,14 +83,12 @@ The logger is optional, but can prove handy for outputting information during th
 
     const sourceConnection = await mongoose.createConnection(sourceServer, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
         dbName: 'eventstore',
         useFindAndModify: false
     });
 
     const destinationConnection = await mongoose.createConnection(destinationServer, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
         dbName: 'eventstore',
         useFindAndModify: false
     });
@@ -138,14 +136,12 @@ import { logger } from '@dolittle/eventstore-migrator';
 
     const sourceConnection = await mongoose.createConnection(sourceServer, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
         dbName: 'eventstore',
         useFindAndModify: false
     });
 
     const destinationConnection = await mongoose.createConnection(destinationServer, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
         dbName: 'eventstore',
         useFindAndModify: false
     });

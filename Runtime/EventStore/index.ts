@@ -12,11 +12,6 @@ import './StringExtensions';
 configureLogging();
 export const logger = Container.get(ILogger);
 
-
-
-
-
-
 import mongoose from 'mongoose';
 import { EventStoreConverter } from './EventStoreConverter';
 
@@ -24,14 +19,12 @@ import { EventStoreConverter } from './EventStoreConverter';
     try {
         const sourceConnection = await mongoose.createConnection('mongodb://localhost:27018', {
             useNewUrlParser: true,
-            useUnifiedTopology: true,
             dbName: 'eventstore_02',
             useFindAndModify: false
         });
 
         const destinationConnection = await mongoose.createConnection('mongodb://localhost:27017', {
             useNewUrlParser: true,
-            useUnifiedTopology: true,
             dbName: 'eventstore_02',
             useFindAndModify: false
         });
