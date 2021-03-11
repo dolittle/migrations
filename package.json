@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@dolittle/typescript.build": "rc",
-    "fs-extra": "^8.1.0",
-    "glob": "^7.1.6"
+    "fs-extra": "8.1.0",
+    "glob": "7.1.6"
   }
 }

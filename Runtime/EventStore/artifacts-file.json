@@ -1,0 +1,1021 @@
+{
+  "95cd4169-bd45-47a6-9bc0-1410fc6a2214": {
+    "commands": {
+      "ebe1c180-898d-4058-84a3-8d20f9532f3b": {
+        "generation": 1,
+        "type": "Domain.Winches.AddMainLineToWinch, Domain"
+      },
+      "720fc03a-0672-4014-be38-9f28a60860d8": {
+        "generation": 1,
+        "type": "Domain.Winches.AddTailLineToWinch, Domain"
+      },
+      "3b0e8def-5abc-4561-8d79-eb91e96e1420": {
+        "generation": 1,
+        "type": "Domain.Winches.EditWinch, Domain"
+      },
+      "b2d437dc-52d6-41ae-8cb9-ac830111a90a": {
+        "generation": 1,
+        "type": "Domain.Winches.RemoveMainLineFromWinch, Domain"
+      },
+      "09dcb393-ead7-454b-92e1-c4cd887c2b19": {
+        "generation": 1,
+        "type": "Domain.Winches.RemoveTailLineFromWinch, Domain"
+      },
+      "c7af0bdc-b3ab-4021-8a30-4d6f14589f9a": {
+        "generation": 1,
+        "type": "Domain.Winches.CreateWinch, Domain"
+      },
+      "6926bdc3-0576-4902-8dd8-a420d17ebb76": {
+        "generation": 1,
+        "type": "Domain.Winches.RetireWinch, Domain"
+      }
+    },
+    "events": {
+      "c51d04ec-2d20-4926-bf06-522ba429974f": {
+        "generation": 1,
+        "type": "Events.Winches.MainLineAddedToWinch, Events"
+      },
+      "9f498355-6b69-42fa-8bff-45b286ea14f5": {
+        "generation": 1,
+        "type": "Events.Winches.MainLineRemovedFromWinch, Events"
+      },
+      "17d581a5-6222-46c0-9ccd-956a88f862da": {
+        "generation": 1,
+        "type": "Events.Winches.TailLineAddedToWinch, Events"
+      },
+      "9a7461ad-1553-4a32-b779-f89a8d79e0b6": {
+        "generation": 1,
+        "type": "Events.Winches.TailLineRemovedFromWinch, Events"
+      },
+      "40635cc5-c096-4d9a-9a3c-f29033fe880f": {
+        "generation": 1,
+        "type": "Events.Winches.WinchCreated, Events"
+      },
+      "7d38ec7a-086b-4a9f-a900-d1a356eaeab7": {
+        "generation": 1,
+        "type": "Events.Winches.WinchEdited, Events"
+      },
+      "276f4f8b-32d9-451d-80b4-ae0c8d4c3e1d": {
+        "generation": 1,
+        "type": "Events.Winches.WinchRetired, Events"
+      },
+      "f0f41d72-3e81-4e92-b7f5-073183ee1c07": {
+        "generation": 1,
+        "type": "Events.Winches.WinchMooringStarted, Events"
+      },
+      "7fb6d091-33c1-4457-ae11-beafd6eb8864": {
+        "generation": 1,
+        "type": "Events.Winches.WinchMooringStartTimeManuallyEdited, Events"
+      },
+      "95f04163-f53d-46a8-993c-f52e5d1e3bfb": {
+        "generation": 1,
+        "type": "Events.Winches.WinchMooringStopped, Events"
+      },
+      "4454669c-b53d-4e36-b875-ded518811725": {
+        "generation": 1,
+        "type": "Events.Winches.WinchMooringStopTimeManuallyEdited, Events"
+      }
+    },
+    "eventSources": {
+      "5dd027a1-7337-46cb-8d50-ef1477e9dd4b": {
+        "generation": 1,
+        "type": "Domain.Winches.Winch, Domain"
+      }
+    },
+    "readModels": {
+      "4934119b-e8a6-419a-824e-8ab446c2dc9b": {
+        "generation": 1,
+        "type": "Read.Winches.Winch, Read"
+      },
+      "0e593a65-f4cf-4fb6-9a3a-4856aac6e595": {
+        "generation": 1,
+        "type": "Read.Winches.WinchWithRopes, Read"
+      },
+      "0279c1cc-6999-4cc2-bce0-444075bc7dd8": {
+        "generation": 1,
+        "type": "Read.Winches.WinchMooring, Read"
+      }
+    },
+    "queries": {
+      "c6a03459-18d7-4d0e-95c0-5653995fca6a": {
+        "generation": 1,
+        "type": "Read.Winches.AllNotRetiredWinches, Read"
+      },
+      "a952b43b-f66f-420d-a4a9-e06fc422a419": {
+        "generation": 1,
+        "type": "Read.Winches.AllRopeOnWinch, Read"
+      },
+      "b4fb4308-cca8-443b-b510-1b77a01a25df": {
+        "generation": 1,
+        "type": "Read.Winches.AllWinches, Read"
+      },
+      "d8210cec-3693-442b-95cd-7d7d23556bb7": {
+        "generation": 1,
+        "type": "Read.Winches.AllWinchInventory, Read"
+      }
+    }
+  },
+  "4e50fed1-2c88-4d70-9c90-81dced0219f2": {
+    "commands": {
+      "0b45f5c1-e594-4f84-aba6-1ad6a2ee94f1": {
+        "generation": 1,
+        "type": "Domain.Vessels.ChangeVessel, Domain"
+      }
+    },
+    "events": {
+      "acca33e1-6a6c-4810-adad-6de870443d4f": {
+        "generation": 1,
+        "type": "Events.Vessels.VesselCreated, Events"
+      },
+      "ded21541-d64c-46d9-a451-54f602c6ed12": {
+        "generation": 1,
+        "type": "Events.Vessels.VesselChanged, Events"
+      },
+      "3c4e4c24-3f9b-47fa-94a1-43817a6f568a": {
+        "generation": 1,
+        "type": "Events.Vessels.VesselMetadataChanged, Events"
+      }
+    },
+    "eventSources": {
+      "7fd02858-0688-4c6c-90e8-c8407cf3cdec": {
+        "generation": 1,
+        "type": "Domain.Vessels.Vessel, Domain"
+      }
+    },
+    "readModels": {
+      "f0c7e540-7d33-4dd1-b21b-4d77ca73d62e": {
+        "generation": 1,
+        "type": "Read.Vessels.IsCurrentVesselAdmin, Read"
+      },
+      "5dc2104e-fab2-4dc5-beaa-7e8edae62eb4": {
+        "generation": 1,
+        "type": "Read.Vessels.Vessel, Read"
+      },
+      "f4e10699-c3f2-4ebc-96e3-9114a233e836": {
+        "generation": 1,
+        "type": "Read.Vessels.ProvideVesselWithWinchesAndRopes+WinchesAndRopesOnVessel, Read"
+      }
+    },
+    "queries": {
+      "4b6b2b92-6f4e-465a-8bd2-b1dc84a52c2c": {
+        "generation": 1,
+        "type": "Read.Vessels.IsCurrentVesselAdminQuery, Read"
+      },
+      "02824261-c408-4d0b-afb0-5d74c50ee84e": {
+        "generation": 1,
+        "type": "Read.Vessels.ProvideVesselWithWinchesAndRopes, Read"
+      },
+      "e4fd257e-fa1d-4091-b4c9-36c32ff6c350": {
+        "generation": 1,
+        "type": "Read.Vessels.RetrieveAllAccessibleVessels, Read"
+      }
+    }
+  },
+  "711ce49d-7f18-4e2f-8073-a2bbf5f9e058": {
+    "commands": {
+      "7a0301e6-6656-464f-980e-e45f5d427be8": {
+        "generation": 1,
+        "type": "Domain.TailLines.CreateTailLine, Domain"
+      },
+      "4b67425a-fca3-4731-bbcd-111faee763af": {
+        "generation": 1,
+        "type": "Domain.TailLines.EditTailLine, Domain"
+      },
+      "b06b0d14-4bd7-4f6d-9004-df97bd9c9b4f": {
+        "generation": 1,
+        "type": "Domain.TailLines.RetireTailLine, Domain"
+      },
+      "ac36becb-5023-47cc-8a77-281cb4e578d6": {
+        "generation": 1,
+        "type": "Domain.TailLines.TailLineManuallyAdjustUsage, Domain"
+      },
+      "0f59eccd-a1b9-4d2f-8ebb-16ebc9179a27": {
+        "generation": 1,
+        "type": "Domain.TailLines.DeleteTailLineFile, Domain"
+      },
+      "b5f066ee-b9de-46f0-b7cf-6a4e9402ee54": {
+        "generation": 1,
+        "type": "Domain.TailLines.DeleteTaiLine, Domain"
+      }
+    },
+    "events": {
+      "ad85e4f7-73b3-4454-acf2-bf0787339985": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineCreated, Events"
+      },
+      "a560e0f0-0762-4ec7-85b6-2ba40a19f482": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineEdited, Events"
+      },
+      "8fde3f81-477c-4c9f-a814-d3d258c2effe": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineMooringRetired, Events"
+      },
+      "29ca5eb1-9c3a-4d3d-b842-c65a161524da": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineMooringStarted, Events"
+      },
+      "99943156-dc43-4d80-a113-cc92e19f6e89": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineMooringStartTimeManuallyEdited, Events"
+      },
+      "6ecfe824-09d0-447a-94b5-80d8980fff74": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineMooringStopped, Events"
+      },
+      "858e7aa2-d4ac-4168-b2e5-7365dbde00d8": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineMooringStopTimeManuallyEdited, Events"
+      },
+      "e7bda969-5297-467d-bb64-e7b2413d3fb1": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineRetired, Events"
+      },
+      "45338319-f8e7-457d-bf85-0b8c7e0e967b": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineUsageManuallyAdjusted, Events"
+      },
+      "ca192d2a-2bf9-4e32-b78d-42d0ab142665": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineFileUploaded, Events"
+      },
+      "ba6edb5d-e190-432f-a95c-0a6b1c5ac715": {
+        "generation": 1,
+        "type": "Events.TailLines.UploadedCertificateFileForTailLine, Events"
+      },
+      "3c163480-c5ae-4c66-bb3d-dbcde4fde822": {
+        "generation": 1,
+        "type": "Events.TailLines.UploadedManualFileForTailLine, Events"
+      },
+      "a31bbebe-7f7e-4d11-8d5f-9ffaccf1001f": {
+        "generation": 1,
+        "type": "Events.TailLines.UploadedMiscellaneousFileForTailLine, Events"
+      },
+      "4243f09f-fb2d-43f9-b527-35290ce23ab6": {
+        "generation": 1,
+        "type": "Events.TailLines.DeletedTailLineFile, Events"
+      },
+      "19494082-297f-4617-8291-761b026dd111": {
+        "generation": 1,
+        "type": "Events.TailLines.TailLineDeleted, Events"
+      }
+    },
+    "eventSources": {
+      "27164e6b-9a08-4d3e-98b0-e231a2ab8f14": {
+        "generation": 1,
+        "type": "Domain.TailLines.TailLine, Domain"
+      }
+    },
+    "readModels": {
+      "5572e3c6-2974-4338-a54b-dd8277b899da": {
+        "generation": 1,
+        "type": "Read.TailLines.RopeUsage, Read"
+      },
+      "4d0a2cf4-20df-4eda-9f49-1550c607c44f": {
+        "generation": 1,
+        "type": "Read.TailLines.TailLine, Read"
+      },
+      "fe1445d7-f53e-418b-b7a0-e41d511fa835": {
+        "generation": 1,
+        "type": "Read.TailLines.File, Read"
+      },
+      "1deb0be3-9319-48ff-98b1-186ddd37bc4e": {
+        "generation": 1,
+        "type": "Read.TailLines.MooringEventForTailLine, Read"
+      },
+      "ee65e2b6-e48a-4e99-a857-3c9000d9d173": {
+        "generation": 1,
+        "type": "Read.TailLines.TailLineEventHandler+InspectionIdToTailLineId, Read"
+      }
+    },
+    "queries": {
+      "9bba92e6-c3ca-4cbd-86d1-a7f7458978e5": {
+        "generation": 1,
+        "type": "Read.TailLines.AllAvailableTailLinesInInventory, Read"
+      },
+      "5fe3550b-0d6d-4ee3-b414-f510d9f799d4": {
+        "generation": 1,
+        "type": "Read.TailLines.AllTailLines, Read"
+      },
+      "5978b93d-63d9-4931-866c-7ce309c14783": {
+        "generation": 1,
+        "type": "Read.TailLines.AllMooringEventsForTailLine, Read"
+      },
+      "82cddfdc-a91c-443b-add9-93cb1b33c193": {
+        "generation": 1,
+        "type": "Read.TailLines.FindTailLineWithId, Read"
+      },
+      "69a754f3-90d1-4904-9aad-388e43fe3323": {
+        "generation": 1,
+        "type": "Read.TailLines.AllTailLineFiles, Read"
+      },
+      "b190e55d-7ce8-4bd9-9390-ff679e66e6d8": {
+        "generation": 1,
+        "type": "Read.TailLines.LastTailLineAdded, Read"
+      }
+    }
+  },
+  "a3e34bbe-a938-41af-bf70-4c8d424169c3": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "18f80b0f-20ca-4326-93ef-0d03fcc3e7e7": {
+        "generation": 1,
+        "type": "Read.Ropes.RetiredRopes, Read"
+      }
+    },
+    "queries": {
+      "bc33d055-7b8d-42a3-8d8d-1ac29958891f": {
+        "generation": 1,
+        "type": "Read.Ropes.AllRetiredRopes, Read"
+      }
+    }
+  },
+  "d8cae819-25b6-40df-a6f5-f78df99fcb20": {
+    "commands": {
+      "e8fac180-c737-49ce-b736-27a080be4db5": {
+        "generation": 1,
+        "type": "Domain.Ports.CreatePort, Domain"
+      }
+    },
+    "events": {
+      "46676f54-7181-4c42-9d79-5442ef67f615": {
+        "generation": 1,
+        "type": "Events.Ports.PortCreated, Events"
+      }
+    },
+    "eventSources": {
+      "40a1f129-2321-427b-abe0-9f4ad82900e9": {
+        "generation": 1,
+        "type": "Domain.Ports.Port, Domain"
+      }
+    },
+    "readModels": {
+      "722060b2-a8f2-49b5-9309-c7f910d7d5db": {
+        "generation": 1,
+        "type": "Read.Ports.Port, Read"
+      }
+    },
+    "queries": {
+      "55aaa46c-e475-4ac3-a96e-27a617b827a2": {
+        "generation": 1,
+        "type": "Read.Ports.AllPorts, Read"
+      },
+      "5426ae55-649b-4913-8f1a-afb3076a5655": {
+        "generation": 1,
+        "type": "Read.Ports.PortsForSearchTerm, Read"
+      }
+    }
+  },
+  "66447629-0555-4c58-ac01-12f03d6f0fde": {
+    "commands": {
+      "0b15ec9c-4a7e-4693-9a8d-232115edb71b": {
+        "generation": 1,
+        "type": "Domain.Moorings.ManuallyEditStartMooringTime, Domain"
+      },
+      "e336323d-8d4d-4a25-8e68-da09a9819c8d": {
+        "generation": 1,
+        "type": "Domain.Moorings.ManuallyEditStopMooringTime, Domain"
+      },
+      "bcb680bf-3313-4186-9256-70b353b65f61": {
+        "generation": 1,
+        "type": "Domain.Moorings.RetireMooring, Domain"
+      },
+      "ad3b7f71-f497-40f6-9309-3764e22ffbd3": {
+        "generation": 1,
+        "type": "Domain.Moorings.StartMooring, Domain"
+      },
+      "93751536-fece-448e-9fdb-e918cd2a25c9": {
+        "generation": 1,
+        "type": "Domain.Moorings.StopMooring, Domain"
+      }
+    },
+    "events": {
+      "5d31a38d-8cfa-4e1b-92b3-2297837b4b04": {
+        "generation": 1,
+        "type": "Events.Moorings.MooringRetired, Events"
+      },
+      "13aa610b-d0b4-4ba8-9d95-34fac455ab21": {
+        "generation": 1,
+        "type": "Events.Moorings.MooringStarted, Events"
+      },
+      "cd2de19c-3437-45f3-99f7-7c7ef3a40246": {
+        "generation": 1,
+        "type": "Events.Moorings.MooringStartTimeManuallyEdited, Events"
+      },
+      "9f6ad919-2958-4149-88f8-f9122b1e6d30": {
+        "generation": 1,
+        "type": "Events.Moorings.MooringStopped, Events"
+      },
+      "1e4d628c-e104-4e4c-b6b7-4c727572a730": {
+        "generation": 1,
+        "type": "Events.Moorings.MooringStopTimeManuallyEdited, Events"
+      }
+    },
+    "eventSources": {
+      "86e3d4ab-ac89-4fbf-b7db-a069f625e2e7": {
+        "generation": 1,
+        "type": "Domain.Moorings.Mooring, Domain"
+      }
+    },
+    "readModels": {
+      "ec7b17a0-e7a3-4717-aae2-21ee67f3777c": {
+        "generation": 1,
+        "type": "Read.Moorings.Mooring, Read"
+      }
+    },
+    "queries": {
+      "3988799f-30f9-4083-a1ce-9e86f8b25567": {
+        "generation": 1,
+        "type": "Read.Moorings.AllActiveMoorings, Read"
+      },
+      "e070df8b-4625-4657-bd1f-f60ad9688c23": {
+        "generation": 1,
+        "type": "Read.Moorings.AllMoorings, Read"
+      },
+      "ff15bd1d-c239-4799-a468-1e5fa3fc3dc7": {
+        "generation": 1,
+        "type": "Read.Moorings.TopmostMoorings, Read"
+      },
+      "7b507fc1-ce54-49c1-991b-e9f4d63a5cdc": {
+        "generation": 1,
+        "type": "Read.Moorings.AllMooringWinches, Read"
+      },
+      "254bd601-c976-4a61-94fb-96c3580f33a1": {
+        "generation": 1,
+        "type": "Read.Moorings.AllStoppedMoorings, Read"
+      },
+      "ceec6f87-8141-4c71-9938-c66a6ff1315e": {
+        "generation": 1,
+        "type": "Read.Moorings.LastMooring, Read"
+      }
+    }
+  },
+  "90b94542-0489-4a68-b918-9a0450378a5e": {
+    "commands": {
+      "40f1726c-592e-44ad-b4d3-fe177eb098fe": {
+        "generation": 1,
+        "type": "Domain.MainLines.CreateMainLine, Domain"
+      },
+      "7b306ed9-013a-4e45-9640-2b2e674c17f0": {
+        "generation": 1,
+        "type": "Domain.MainLines.EditMainLine, Domain"
+      },
+      "0d263151-2df0-4908-85ac-df4a78e4ff59": {
+        "generation": 1,
+        "type": "Domain.MainLines.MainLineManuallyAdjustUsage, Domain"
+      },
+      "c49b5b96-7211-4fce-ae19-817ad77ae958": {
+        "generation": 1,
+        "type": "Domain.MainLines.RetireMainLine, Domain"
+      },
+      "d5b04a92-c5ee-4747-bad9-c22426fc22c9": {
+        "generation": 1,
+        "type": "Domain.MainLines.TurnMainLine, Domain"
+      },
+      "8edf313f-8c43-498d-a6c3-380da5bec590": {
+        "generation": 1,
+        "type": "Domain.MainLines.DeleteMainLineFile, Domain"
+      },
+      "a8c025e8-ec5a-46db-955e-c82663b975fe": {
+        "generation": 1,
+        "type": "Domain.MainLines.DeleteTurnMainLineEvent, Domain"
+      },
+      "53ae93cd-272a-47d1-a231-df10808cca8a": {
+        "generation": 1,
+        "type": "Domain.MainLines.EditTurnMainLineEvent, Domain"
+      },
+      "bf6f3538-e36a-44bf-9a23-b84f6f4352aa": {
+        "generation": 1,
+        "type": "Domain.MainLines.DeleteMainLine, Domain"
+      }
+    },
+    "events": {
+      "6be365c0-5983-4498-8e2e-f1cf52595a65": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineCreated, Events"
+      },
+      "a73426e4-7a3c-4460-9dce-741dcb4122fb": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineEdited, Events"
+      },
+      "de733d3b-34d1-4df8-b445-dd605f647f13": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineMooringRetired, Events"
+      },
+      "f07a96f1-d4f4-452d-8e11-a587ebb90aa9": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineMooringStarted, Events"
+      },
+      "efc6806a-1b68-414c-b276-31a94b2bc0da": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineMooringStartTimeManuallyEdited, Events"
+      },
+      "28328d93-a683-46f7-9e96-ff3d3dd8ffd2": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineMooringStopped, Events"
+      },
+      "cd98b561-6303-4d1c-bca0-d81150f1d93c": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineMooringStopTimeManuallyEdited, Events"
+      },
+      "782b1d14-20a6-4d2c-854b-47ee41e168b3": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineRetired, Events"
+      },
+      "02b197ca-2bf9-49d3-9ae6-6ae0ae807018": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineUsageManuallyAdjusted, Events"
+      },
+      "321725fc-004c-48f9-8693-c7d1f52e612a": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineTurned, Events"
+      },
+      "301c7907-4792-43f7-a842-5ddb073a3b96": {
+        "generation": 1,
+        "type": "Events.MainLines.UploadedCertificateFileForMainLine, Events"
+      },
+      "031f1ae1-9784-4f36-9d5f-993cb553aeae": {
+        "generation": 1,
+        "type": "Events.MainLines.UploadedManualFilesForMainLine, Events"
+      },
+      "090176ea-a700-40b5-944b-55e7a10b30d8": {
+        "generation": 1,
+        "type": "Events.MainLines.UploadedMiscellaneousFileForMainLine, Events"
+      },
+      "64a1e2b0-f88f-4160-82d5-a860c40ecc1e": {
+        "generation": 1,
+        "type": "Events.MainLines.DeletedMainLineFile, Events"
+      },
+      "57f4710d-0d7f-4a3f-8ac8-8f78497706ce": {
+        "generation": 1,
+        "type": "Events.MainLines.TurnMainLineEventDeleted, Events"
+      },
+      "50163867-731c-48a3-ae1d-a30e77e41978": {
+        "generation": 1,
+        "type": "Events.MainLines.TurnMainLineEventEdited, Events"
+      },
+      "3ad16b38-d79e-46ee-a39a-914f0218d980": {
+        "generation": 1,
+        "type": "Events.MainLines.MainLineDeleted, Events"
+      }
+    },
+    "eventSources": {
+      "1112614d-a042-473b-99b0-b593ca075f50": {
+        "generation": 1,
+        "type": "Domain.MainLines.MainLine, Domain"
+      }
+    },
+    "readModels": {
+      "bf6891b1-4209-4ae5-a0b6-c840c95a867b": {
+        "generation": 1,
+        "type": "Read.MainLines.MainLine, Read"
+      },
+      "ce2d82d1-d19d-497e-bc1e-19cab3fac5c1": {
+        "generation": 1,
+        "type": "Read.MainLines.MooringEventForMainLine, Read"
+      },
+      "24f18fb9-d302-481e-9b00-4293b9601ff4": {
+        "generation": 1,
+        "type": "Read.MainLines.RopeUsage2, Read"
+      },
+      "13df0457-d32a-4742-928e-cad93abb020b": {
+        "generation": 1,
+        "type": "Read.MainLines.File, Read"
+      },
+      "7d00c5bc-d116-4c7c-a675-e798a2a66942": {
+        "generation": 1,
+        "type": "Read.MainLines.MainLineTurnedEventWithMooringHours, Read"
+      },
+      "730e296f-c8db-4def-8f1e-82c86eec94c8": {
+        "generation": 1,
+        "type": "Read.MainLines.MainLineTurnedEvent3, Read"
+      },
+      "69a9bc4a-a0f0-4626-ad56-2ec02bfad619": {
+        "generation": 1,
+        "type": "Read.MainLines.MainLineTurnedEvent, Read"
+      },
+      "5f5cd4f4-e606-4658-b521-f4aeb16ce52c": {
+        "generation": 1,
+        "type": "Read.MainLines.MainLineEventHandler+InspectionIdToMainLineId, Read"
+      }
+    },
+    "queries": {
+      "84773888-593d-4a7d-af58-bc64a4245669": {
+        "generation": 1,
+        "type": "Read.MainLines.AllAvailableMainLinesInInventory, Read"
+      },
+      "4c41d032-7322-4994-bb66-f17f810f523d": {
+        "generation": 1,
+        "type": "Read.MainLines.AllMooringEventsForMainLine, Read"
+      },
+      "fe4b8496-6df6-4346-9b88-783d2b49a249": {
+        "generation": 1,
+        "type": "Read.MainLines.FindMainLineWithId, Read"
+      },
+      "07b4a72c-46d8-4104-a0df-fcc9a13112f4": {
+        "generation": 1,
+        "type": "Read.MainLines.AllMainLineFiles, Read"
+      },
+      "4eef69b0-2275-4727-93c9-eedab1a70093": {
+        "generation": 1,
+        "type": "Read.MainLines.AllMainLineTurnedEvents, Read"
+      },
+      "7e8dba9b-365a-435a-b184-5fccb3874693": {
+        "generation": 1,
+        "type": "Read.MainLines.AllMainLines, Read"
+      },
+      "83e77693-3420-4335-9972-9ddaa0e9d0ca": {
+        "generation": 1,
+        "type": "Read.MainLines.LastMainLineAdded, Read"
+      }
+    }
+  },
+  "4a4ab30f-0f51-4169-830f-48659ff3205a": {
+    "commands": {},
+    "events": {
+      "70ad0cc0-06b8-4b87-b297-6992afe88879": {
+        "generation": 1,
+        "type": "Events.Manuals.ManualCreated, Events"
+      }
+    },
+    "eventSources": {},
+    "readModels": {},
+    "queries": {}
+  },
+  "27f7f82b-9815-4777-afdc-5dc1ce0909fb": {
+    "commands": {},
+    "events": {
+      "2f3674b6-1d1e-4934-9946-a747e37519da": {
+        "generation": 1,
+        "type": "Events.Certificates.CertificateCreated, Events"
+      }
+    },
+    "eventSources": {},
+    "readModels": {},
+    "queries": {}
+  },
+  "87bcc117-5a86-44b8-9c30-e6ddfb646fdc": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "3bf0d12b-3337-4d58-8f14-42fa00808d9c": {
+        "generation": 1,
+        "type": "Read.Reports.ReportRope, Read"
+      },
+      "adb7dce7-ead9-4115-952e-7ed7dab87d77": {
+        "generation": 1,
+        "type": "Read.Reports.ReportMainLine, Read"
+      },
+      "2aaa6a5e-4e8a-47eb-a323-7f411cd6873e": {
+        "generation": 1,
+        "type": "Read.Reports.ReportTailLine, Read"
+      },
+      "45348d29-246b-40cc-a7a0-4c961927159d": {
+        "generation": 1,
+        "type": "Read.Reports.File, Read"
+      },
+      "6e69a37f-45c4-4af9-ac19-5260c440a5fc": {
+        "generation": 1,
+        "type": "Read.Reports.ReportDetailMooringEvent, Read"
+      },
+      "6c53563a-e9b7-4c4d-ba81-1360129f7638": {
+        "generation": 1,
+        "type": "Read.Reports.ReportMooringEvent, Read"
+      },
+      "8467364d-d3d4-4b3f-ae43-069b1cc643ce": {
+        "generation": 1,
+        "type": "Read.Reports.ReportRope2, Read"
+      }
+    },
+    "queries": {
+      "bbf3ffd1-f7ce-4413-91db-95a234665695": {
+        "generation": 1,
+        "type": "Read.Reports.AllFiles, Read"
+      },
+      "9312e57a-98e5-46d0-95c1-32aa8e81186f": {
+        "generation": 1,
+        "type": "Read.Reports.AllReportRopes, Read"
+      },
+      "eaf2c6bd-be9e-4859-9f7f-5f929dea8239": {
+        "generation": 1,
+        "type": "Read.Reports.AllDetailedReportMooringEvents, Read"
+      },
+      "4501703f-2ac9-4a13-9c8e-95ef7829c44b": {
+        "generation": 1,
+        "type": "Read.Reports.AllReportMooringEvents, Read"
+      }
+    }
+  },
+  "f9ba21e2-a925-40d8-bea2-bef9f26abde2": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "458b46c1-3e63-4da9-9ac7-96e3db86cfc0": {
+        "generation": 1,
+        "type": "Read.MooringConfigurations.MooringConfiguration, Read"
+      },
+      "daa77bbd-fb6c-49a0-83df-a159be11ec59": {
+        "generation": 1,
+        "type": "Read.MooringConfigurations.WinchWithMooringConfiguration, Read"
+      }
+    },
+    "queries": {
+      "cece3746-b473-4c87-adfb-3e63b6d8aade": {
+        "generation": 1,
+        "type": "Read.MooringConfigurations.AllWinchesWithMooringConfiguration, Read"
+      },
+      "b7443ae9-21d6-4d8e-b5d9-54968ce2243d": {
+        "generation": 1,
+        "type": "Read.MooringConfigurations.MooringConfigurationForPort, Read"
+      }
+    }
+  },
+  "08a2c601-7d99-4c9b-b072-0b14e6ce26c3": {
+    "commands": {
+      "8993c148-6b4a-48b8-befa-fb22fdd2feb5": {
+        "generation": 1,
+        "type": "Domain.Inspections.AddMainLineInspection, Domain"
+      },
+      "9ac9230c-5153-4306-a1a4-9a2b1f4dd167": {
+        "generation": 1,
+        "type": "Domain.Inspections.AddTailLineInspection, Domain"
+      },
+      "f4711449-9362-45a9-9a72-58ac5d4d4b27": {
+        "generation": 1,
+        "type": "Domain.Inspections.DeleteMainLineInspection, Domain"
+      },
+      "1c4b005d-3d9b-46be-bf05-737c8d7d0f44": {
+        "generation": 1,
+        "type": "Domain.Inspections.DeleteTailLineInspection, Domain"
+      },
+      "1dda8845-0162-42fc-91f3-e63a274db7a4": {
+        "generation": 1,
+        "type": "Domain.Inspections.UpdateMainLineInspection, Domain"
+      },
+      "0ece1d63-de77-4c02-95fd-94009f941141": {
+        "generation": 1,
+        "type": "Domain.Inspections.UpdateTailLineInspection, Domain"
+      },
+      "87db07ce-f32f-49fa-a175-92bb2591fb5b": {
+        "generation": 1,
+        "type": "Domain.Inspections.UploadInspectionFile, Domain"
+      },
+      "1ad46ab3-7bfa-49b2-9e92-7858a58faaf4": {
+        "generation": 1,
+        "type": "Domain.Inspections.DeleteInspectionFile, Domain"
+      }
+    },
+    "events": {
+      "56ddc2a7-226a-4435-94d7-7ed50da34494": {
+        "generation": 1,
+        "type": "Events.Inspections.MainLineInspectionAdded, Events"
+      },
+      "3d5714dc-a1b1-4b7a-8f31-284642b0bfa1": {
+        "generation": 1,
+        "type": "Events.Inspections.TailLineInspectionAdded, Events"
+      },
+      "c18c35ec-17a9-42b8-92b0-c8c647b70bb5": {
+        "generation": 1,
+        "type": "Events.Inspections.MainLineInspectionUpdated, Events"
+      },
+      "88e4d91b-d0a9-4f2c-8416-a932e450a1bc": {
+        "generation": 1,
+        "type": "Events.Inspections.TailLineInspectionUpdated, Events"
+      },
+      "9333bff8-b191-4364-8c80-00627c9e8d18": {
+        "generation": 1,
+        "type": "Events.Inspections.MainLineInspectionDeleted, Events"
+      },
+      "a19ed921-d265-4b8a-986b-f0bea682c768": {
+        "generation": 1,
+        "type": "Events.Inspections.TailLineInspectionDeleted, Events"
+      },
+      "c75de802-af9e-4c6a-afa9-ec45eb6f37f3": {
+        "generation": 1,
+        "type": "Events.Inspections.InspectionFileUploaded, Events"
+      },
+      "ce936209-30d8-460c-ab34-bef41eadd51e": {
+        "generation": 1,
+        "type": "Events.Inspections.InspectionFileDeleted, Events"
+      }
+    },
+    "eventSources": {
+      "db33528b-745c-45ff-aa38-d0a81eed8c09": {
+        "generation": 1,
+        "type": "Domain.Inspections.Inspection, Domain"
+      }
+    },
+    "readModels": {
+      "d271d4cb-79ec-42dd-974d-dd2572b2cf40": {
+        "generation": 1,
+        "type": "Read.Inspections.MainLineInspection, Read"
+      },
+      "b88fe140-6815-46ea-9c52-561032c15bed": {
+        "generation": 1,
+        "type": "Read.Inspections.TailLineInspection, Read"
+      },
+      "1675b487-9ab2-4257-8ccc-0a97ff1078ae": {
+        "generation": 1,
+        "type": "Read.Inspections.MainLineInspectionsWithRopeDetails, Read"
+      },
+      "4fbc7e48-251b-45ff-9001-1a69ade4a47d": {
+        "generation": 1,
+        "type": "Read.Inspections.TailLineInspectionsWithRopeDetails, Read"
+      },
+      "da84cc11-957a-421c-aeb7-21692978adff": {
+        "generation": 1,
+        "type": "Read.Inspections.InspectionFile, Read"
+      },
+      "12626b3b-e249-4715-a391-ae37d8106ffe": {
+        "generation": 1,
+        "type": "Read.Inspections.RopeInspection, Read"
+      },
+      "d0b67497-7015-4a47-b310-f6c5bc03e7c7": {
+        "generation": 1,
+        "type": "Read.Inspections.RopeInspectionsWithRopeDetails, Read"
+      }
+    },
+    "queries": {
+      "aa00ec00-6d34-4521-a017-6dfd49b27358": {
+        "generation": 1,
+        "type": "Read.Inspections.AllInspectionsOnMainLine, Read"
+      },
+      "bccd6ac5-c3a2-4c0d-a149-39dffd97b665": {
+        "generation": 1,
+        "type": "Read.Inspections.AllInspectionsOnTailLine, Read"
+      },
+      "417f8f03-ce88-4f81-9736-5de9fa4f35df": {
+        "generation": 1,
+        "type": "Read.Inspections.AllInspectionsForRopes, Read"
+      },
+      "728d2cf7-60c3-465d-ad00-12ef43539df9": {
+        "generation": 1,
+        "type": "Read.Inspections.AllInspectionsOnMainLineForVessel, Read"
+      },
+      "82797498-1fbc-4fbc-a4dd-a6341e35c03e": {
+        "generation": 1,
+        "type": "Read.Inspections.AllInspectionsOnTailLineForVessel, Read"
+      }
+    }
+  },
+  "beac5d8e-0198-4ce8-bc06-d907afd3ffb8": {
+    "commands": {},
+    "events": {
+      "d7a2f348-bee3-4564-856c-6fbe209fd5e8": {
+        "generation": 1,
+        "type": "Events.SmartRopes.TailLineTensionStateChanged, Events"
+      },
+      "ccec135c-020c-44a8-9a05-385cceff63e7": {
+        "generation": 1,
+        "type": "Events.SmartRopes.MainLineTensionStateChanged, Events"
+      }
+    },
+    "eventSources": {
+      "c988d1a0-b75a-40bb-be3c-ae32b1412f71": {
+        "generation": 1,
+        "type": "Domain.SmartRopes.SmartRope, Domain"
+      }
+    },
+    "readModels": {
+      "60ee60e6-30c6-4ec9-ac46-50e0b08a5ea8": {
+        "generation": 1,
+        "type": "Read.SmartRopes.MainLineTensionStateStatistics, Read"
+      },
+      "f47c1531-883e-4b2b-8b2e-ab4bb3af4124": {
+        "generation": 1,
+        "type": "Read.SmartRopes.TailLineTensionStateStatistics, Read"
+      }
+    },
+    "queries": {
+      "4aecb21c-df24-4345-b125-79a4a1aa3ba5": {
+        "generation": 1,
+        "type": "Read.SmartRopes.MinutesUnderTensionForMainLineByState, Read"
+      },
+      "260b4806-c3ca-4041-a8e3-b56d6b1350fb": {
+        "generation": 1,
+        "type": "Read.SmartRopes.MinutesUnderTensionForTailLineByState, Read"
+      }
+    }
+  },
+  "d70199c2-c2f3-4283-a44b-396de9f5c20a": {
+    "commands": {
+      "84cd4f28-3381-4b9e-ac02-ef062be179d3": {
+        "generation": 1,
+        "type": "Domain.Admin.Vessels.CreateVessel, Domain"
+      },
+      "18f4607d-d2ef-4d6c-b955-55aa00235d5d": {
+        "generation": 1,
+        "type": "Domain.Admin.Vessels.ChangeVesselMetadata, Domain"
+      }
+    },
+    "events": {},
+    "eventSources": {},
+    "readModels": {},
+    "queries": {
+      "d1b1c2da-908a-4d6c-8679-0756544ac6d5": {
+        "generation": 1,
+        "type": "Read.Admin.Vessels.AllVessels, Read"
+      }
+    }
+  },
+  "b2ec07b5-47bf-4a22-a092-8b0e80699fa8": {
+    "commands": {
+      "65dac10d-dcc7-42bc-a4fc-04530d7de84e": {
+        "generation": 1,
+        "type": "Domain.Rules.CreateRule, Domain"
+      },
+      "64e6a691-01b4-4443-9e71-ddce345c143a": {
+        "generation": 1,
+        "type": "Domain.Rules.UpdateRule, Domain"
+      },
+      "89b032b0-c27f-4293-aa52-0364d23f28fc": {
+        "generation": 1,
+        "type": "Domain.Rules.CreateCriteria, Domain"
+      },
+      "7ef20c0a-e0a0-47b6-8475-ccdb6f759c54": {
+        "generation": 1,
+        "type": "Domain.Rules.DeleteCriteria, Domain"
+      },
+      "db001fbf-14bd-4b6e-8f78-2f8b1dbca995": {
+        "generation": 1,
+        "type": "Domain.Rules.UpdateCriteria, Domain"
+      },
+      "8083be05-e2ef-4af1-8b93-1ae11e727eca": {
+        "generation": 1,
+        "type": "Domain.Rules.DeleteRule, Domain"
+      }
+    },
+    "events": {
+      "4be285a5-002c-4053-8743-105500f3eaaa": {
+        "generation": 1,
+        "type": "Events.Rules.RuleCreated, Events"
+      },
+      "957e3ce8-47ae-4d3d-8251-a8b118d74552": {
+        "generation": 1,
+        "type": "Events.Rules.RuleUpdated, Events"
+      },
+      "00ea47b4-856b-43fb-a6e4-81fd41e36f28": {
+        "generation": 1,
+        "type": "Events.Rules.CriteriaDeleted, Events"
+      },
+      "7e521bfc-840f-4119-af10-45512859e3fd": {
+        "generation": 1,
+        "type": "Events.Rules.CriteriaUpdated, Events"
+      },
+      "396c4cee-357a-451b-992f-aaedb86488b0": {
+        "generation": 1,
+        "type": "Events.Rules.CritriaCreated, Events"
+      },
+      "d72cbc20-acb8-47fa-a87b-1c2183572526": {
+        "generation": 1,
+        "type": "Events.Rules.RuleDeleted, Events"
+      }
+    },
+    "eventSources": {
+      "80869ce9-7e55-4d58-bc59-6916ccc1ff46": {
+        "generation": 1,
+        "type": "Domain.Rules.Rule, Domain"
+      }
+    },
+    "readModels": {
+      "1a5faf74-da82-4216-83e9-d622cc3bf7c6": {
+        "generation": 1,
+        "type": "Read.Rules.RetirementRule, Read"
+      },
+      "fb2d2990-7104-446c-889f-b5c4d859d9ca": {
+        "generation": 1,
+        "type": "Read.Rules.RetirementCriteria, Read"
+      },
+      "68b0d3a5-6beb-4565-984b-02dfa4765397": {
+        "generation": 1,
+        "type": "Read.Rules.RulesWithCriteriaAndRopes, Read"
+      }
+    },
+    "queries": {
+      "ce88a3cc-6b96-45a6-9a6a-782d0800b0f1": {
+        "generation": 1,
+        "type": "Read.Rules.AllRulesWithCriteriaAndRopes, Read"
+      },
+      "64792ab7-1ff3-4fb3-8ec3-fc9e43feb21f": {
+        "generation": 1,
+        "type": "Read.Rules.AllAvailableRules, Read"
+      }
+    }
+  },
+  "4e8752be-8eb4-4fd0-baf7-d4928820850a": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "36922387-c11b-47be-9013-004125a410af": {
+        "generation": 1,
+        "type": "Read.DataPoints.MooringDatapoint, Read"
+      }
+    },
+    "queries": {}
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@dolittle/eventstore-migrator",
-  "version": "1.0.18",
+  "version": "2.0.0",
   "description": "Migrator for the Dolittle Event Store",
   "main": "Distribution/index.js",
   "types": "Distribution/index.d.ts",
@@ -37,22 +37,17 @@
   "author": "Dolittle",
   "license": "MIT",
   "devDependencies": {
-    "@types/cli-progress": "^3.8.0",
-    "@types/mongoose": "5.7.36",
-    "gulp": "^4.0.2",
-    "nodemon": "^2.0.4",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "@types/cli-progress": "3.8.0",
+    "gulp": "4.0.2",
+    "nodemon": "2.0.4",
+    "ts-node": "9.0.0",
+    "typescript": "4.0.2"
   },
   "dependencies": {
-    "@dolittle/rudiments": "^5.0.0",
-    "@typegoose/typegoose": "7.3.4",
-    "cli-progress": "^3.8.2",
-    "mongoose": "5.10.1",
-    "reflect-metadata": "0.1.13",
-    "type-graphql": "1.0.0",
-    "typescript-ioc": "^3.2.2",
-    "uuid-mongodb": "^2.3.0",
-    "winston": "^3.3.3"
+    "@dolittle/sdk": "14.2.0",
+    "@types/mongodb": "3.6.9",
+    "cli-progress": "3.8.2",
+    "mongodb": "3.6.3",
+    "rxjs": "6.6.0"
   }
 }

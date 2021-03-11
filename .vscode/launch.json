@@ -9,7 +9,7 @@
             "program": "${workspaceFolder}/Runtime/EventStore/index.ts",
             "request": "launch",
             "preLaunchTask": "tsc: build - Runtime/EventStore/tsconfig.json",
-            "outFiles": ["${workspaceFolder}/Runtime/EventStore/Distribution/**/*.js"],            
+            "outFiles": ["${workspaceFolder}/Runtime/EventStore/Distribution/**/*.js"],
             "skipFiles": [
                 "<node_internals>/**"
             ],

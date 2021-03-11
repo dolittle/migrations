@@ -2,43 +2,34 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { Guid } from '@dolittle/rudiments';
+
 import { ExecutionContext } from './ExecutionContext';
-import { guid } from '../guid';
-import { modelOptions, prop } from '@typegoose/typegoose';
+import { guidFromBinary } from './guidFromBinary';
 
-@modelOptions({ options: { customName: 'EventV4' } })
 export class Event {
-    @guid(false)
-    _id?: Guid;
+    readonly _id: Guid;
+    readonly correlation_id: Guid;
+    readonly event_artifact: Guid;
+    readonly generation: number;
+    readonly eventsource_id: Guid;
+    readonly event_source_artifact: Guid;
+    readonly commit: number;
+    readonly sequence: number;
+    readonly occurred: Date;
+    readonly original_context: ExecutionContext;
+    readonly event: any;
 
-    @guid(false)
-    correlation_id!: Guid;
-
-    @guid(false)
-    event_artifact!: Guid;
-
-    @prop()
-    generation!: 1;
-
-    @guid(false)
-    event_source_artifact!: Guid;
-
-    @guid(false)
-    eventsource_id!: Guid;
-
-    @prop()
-    commit!: number;
-
-    @prop()
-    sequence!: number;
-
-    @prop()
-    occurred!: number;
-
-    @prop({ _id: false, type: ExecutionContext })
-    original_context!: ExecutionContext;
-
-    @prop()
-    event!: any;
+    constructor(raw: any) {
+        this._id = guidFromBinary(raw._id);
+        this.correlation_id = guidFromBinary(raw.correlation_id);
+        this.event_artifact = guidFromBinary(raw.event_artifact);
+        this.generation = raw.generation;
+        this.eventsource_id = guidFromBinary(raw.eventsource_id);
+        this.event_source_artifact = guidFromBinary(raw.event_source_artifact);
+        this.commit = raw.commit;
+        this.sequence = raw.sequence;
+        this.occurred = new Date(raw.occurred);
+        this.original_context = new ExecutionContext(raw.original_context);
+        this.event = raw.event;
+    }
 }
-
